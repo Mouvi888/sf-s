@@ -1,8 +1,2 @@
-RewriteEngine on
-RewriteCond %{HTTP_HOST} ^(www.)?mysite.com$
-RewriteCond %{REQUEST_URI} !^/public_html/
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ /public_html/$1
-RewriteCond %{HTTP_HOST} ^(www.)?mysite.com$
-RewriteRule ^(/)?$ public_html/index.php [L]
+RewriteEngine On
+RewriteRule ^$ /public_html/ [L]
