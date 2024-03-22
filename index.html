@@ -5,13 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mouvi</title>
-    </head>
-<body>
-    <header>
-        <h1><img src="site.png" alt="mouvi.lol" href="https://mouvi.lol" style="width: 200px;"></h1>
-    </header>
     <style>
-<body> {
+        body {
             font-family: Arial, sans-serif;
             background-color: #f4f0f4;
             margin: 0;
@@ -32,38 +27,41 @@
             width: 100%;
         }
         .container {
-  width: 100%;
-  text-align: center;
-  margin-top: 50px;
-}
-.text {
-  font-size: 48px;
-  font-weight: bold;
-  color: #333;
-  position: relative;
-  animation: color-change 5s infinite;
-}
-@keyframes color-change {
-  0% { color: #333; }
-  25% { color: #ff0000; }
-  50% { color: #00ff00; }
-  75% { color: #0000ff; }
-  100% { color: #333; }
-}
- #menu {
+            width: 100%;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .text {
+            font-size: 48px;
+            font-weight: bold;
+            color: #333;
+            position: relative;
+            animation: color-change 5s infinite;
+        }
+        @keyframes color-change {
+            0% { color: #333; }
+            25% { color: #ff0000; }
+            50% { color: #00ff00; }
+            75% { color: #0000ff; }
+            100% { color: #333; }
+        }
+        #menu {
             display: none;
             position: absolute;
             background-color: white;
             border: 1px solid black;
             padding: 10px;
         }
-        
         img {
             cursor: pointer;
         }
-</style>
+    </style>
 </head>
 <body>
+    <header>
+        <h1><a href="https://mouvi.lol"><img src="site.png" alt="mouvi.lol" style="width: 200px;"></a></h1>
+    </header>
+
     <img src="menu.png" onclick="toggleMenu()">
     
     <div id="menu">
@@ -82,28 +80,21 @@
             }
         }
     </script>
-</body>
-</style>
-</head>
-<body>
-<div class="container">
-  <p class="text">Привет, я Mouvi!</p>
-</div>
-    </style>
-</head>
-<body> 
-    </header>
+
+    <div class="container">
+        <p class="text">Привет, я Mouvi!</p>
+    </div>
 
     <section>
         <h1>Обо мне</h1>
-        <p><strong>Я разбираюсь в дискорд ботах, немного знаю HTML, умею писать ботов для Discord на BDFD.<strong></p>
+        <p><strong>Я разбираюсь в дискорд ботах, немного знаю HTML, умею писать ботов для Discord на BDFD.</strong></p>
     </section>
 
     <section>
         <h1>Контакты</h1>
-        <p><strong>Email: help@mouvi.lol<strong></p>
-        <p><strong>Вконтакте<strong>: <a href="https://vk.com/mouvi"><strong>vk.com/mouvi<strong></a>.</p>
-        <p><strong>Дискорд: mouvi.rework<strong></p>
+        <p><strong>Email: help@mouvi.lol</strong></p>
+        <p><strong>Вконтакте:</strong> <a href="https://vk.com/mouvi">vk.com/mouvi</a>.</p>
+        <p><strong>Дискорд: mouvi.rework</strong></p>
     </section>
 
     <footer>
