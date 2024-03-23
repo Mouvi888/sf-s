@@ -1,0 +1,15 @@
+.container {
+    width: 50%;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input[type="text"],
+input[type="email"],
+button {
+    margin: 5px 0;
+    padding: 5px;
+    width: 100%;
+}
