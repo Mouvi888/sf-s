@@ -1,8 +1,15 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@1,500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link rel="icon" href="site.png">
     <meta charset="UTF-8">
+<meta name="keyword" content="Привет, игры, веб, разработка, ии, искуственный интеллект, видео игры, технологии">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mouvi</title>
     </head>
@@ -11,6 +18,128 @@
         <h1><img src="site.png" alt="mouvi.lol" href="https://mouvi.lol" style="width: 200px;"></h1>
     </header>
     <style>
+::selection {
+background: #c7fcec; /* Safari */
+}
+::-moz-selection {
+background: #d8c2ff; /* Firefox */
+}
+.montserrat-alternates-medium-italic {
+  font-family: "Montserrat Alternates", sans-serif;
+  font-weight: 500;
+  font-style: italic;
+}
+.fira-sans condensed-thin {
+  font-family: "Fira Sans Condensed", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.fira-sans condensed-extralight {
+  font-family: "Fira Sans Condensed", sans-serif;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.fira-sans condensed-light {
+  font-family: "Fira Sans Condensed", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.fira-sans condensed-regular {
+  font-family: "Fira Sans Condensed", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.fira-sans condensed-medium {
+  font-family: "Fira Sans Condensed", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.fira-sans condensed-semibold {
+  font-family: "Fira Sans Condensed", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.fira-sans condensed-bold {
+  font-family: "Fira Sans Condensed", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.fira-sans condensed-extrabold {
+  font-family: "Fira Sans Condensed", sans-serif;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.fira-sans condensed-black {
+  font-family: "Fira Sans Condensed", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.fira-sans condensed-thin-italic {
+  font-family: "Fira Sans Condensed", sans-serif;
+  font-weight: 100;
+  font-style: italic;
+}
+
+.fira-sans condensed-extralight-italic {
+  font-family: "Fira Sans Condensed", sans-serif;
+  font-weight: 200;
+  font-style: italic;
+}
+
+.fira-sans condensed-light-italic {
+  font-family: "Fira Sans Condensed", sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.fira-sans condensed-regular-italic {
+  font-family: "Fira Sans Condensed", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.fira-sans condensed-medium-italic {
+  font-family: "Fira Sans Condensed", sans-serif;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.fira-sans condensed-semibold-italic {
+  font-family: "Fira Sans Condensed", sans-serif;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.fira-sans condensed-bold-italic {
+  font-family: "Fira Sans Condensed", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.fira-sans condensed-extrabold-italic {
+  font-family: "Fira Sans Condensed", sans-serif;
+  font-weight: 800;
+  font-style: italic;
+}
+
+.fira-sans condensed-black-italic {
+  font-family: "Fira Sans Condensed", sans-serif;
+  font-weight: 900;
+  font-style: italic;
+}
+body {
+    background-image: url('tech-background.jpg');
+    background-size: cover;
+}
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f0f4;
@@ -56,21 +185,21 @@
 </head>
 <body>
 <div class="container">
-  <p class="text">Ссылки для оплаты</p>
+  <p style="font-family: 'Montserrat Alternates', sans-serif;" class="text">Заранее спасибо за поодержку!</p>
 </div>
     </style>
 </head>
 <body> 
     </header>
     <section>
-        <h1>Ссылки</h1>
-        <p><strong>Enot.io: help@mouvi.lol<strong></p>
-        <p><strong>Tinkoff<strong>: <a href="https://www.tinkoff.ru/rm/berenko.dmitriy1/up3Bq68639"><strong>Тык<strong></a>.</p>
-        <p><strong>Сбербанк:5228 6005 9370 4580<strong></p>
+        <h1 style="font-family: 'Montserrat Alternates', sans-serif;">Ссылочки</h1>
+        <p style="font-family: 'Fira Sans Condensed', sans-serif;">Boosty: <a href="https://boosty.to/stalkermitya"><strong>Нажми<strong></a></p>
+        <p style="font-family: 'Fira Sans Condensed', sans-serif;">Тинькофф: <a href="https://www.tinkoff.ru/rm/berenko.dmitriy1/up3Bq68639"><strong>Нажми<strong></a>.</p>
+        <p style="font-family: 'Fira Sans Condensed', sans-serif;">Donation Alerts: <a href="https://www.donationalerts.com/r/mouvi"><strong>Нажми<strong></a>.</p>
     </section>
 
     <footer>
-        &copy; 2024 Все права защищены
+        &copy; 2024 Все права защищены 
 <p style="font-size: 12px;">По поводу всех вопросов обращайте по эл. почте - <strong>help@mouvi.lol</strong></p>
     </footer>
 </body>
