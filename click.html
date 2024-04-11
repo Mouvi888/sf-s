@@ -21,7 +21,23 @@
         <h1><img src="site.png" alt="mouvi.lol" href="https://mouvi.lol" style="width: 200px;"></h1>
     </header>
     <style>
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  background-color: #3498db;
+  color: #fff;
+  border-radius: 5px;
+  border: 2px solid #3498db;
+  cursor: pointer;
+}
 
+.button:hover {
+  background-color: #2980b9;
+}
 ::selection {
 background: #c7fcec; /* Safari */
 }
@@ -194,7 +210,7 @@ body {
 </head>
     </header>
     <section>
-        <button id="btn" onclick="increaseCount()">Нажми на меня!</button>
+        <button class="button" id="btn" onclick="increaseCount()">Нажми на меня!</button>
     <p>Счетчик: <span id="count">0</span></p>
 
     <script>
