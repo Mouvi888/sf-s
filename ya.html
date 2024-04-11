@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Украшение сайта</title>
+<style>
+    .animated-heading {
+        font-size: 36px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+    .animated-heading span {
+        display: inline-block;
+        transform: translateY(100%);
+        transition: transform 0.5s;
+    }
+    .animated-heading span.active {
+        transform: translateY(0);
+    }
+</style>
+</head>
+<body>
+    <div class="animated-heading">
+        <span>Привет, мир!</span>
+    </div>
+</body>
+<script>
+    const heading = document.querySelector('.animated-heading span');
+    heading.classList.add('active');
+</script>
+</html>
