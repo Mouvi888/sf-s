@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Сокращение URL</title>
+</head>
+<body>
+    <input type="text" id="urlInput" placeholder="Вставьте URL">
+    <button onclick="shortenUrl()">Сократить URL</button>
+    <p id="shortenedUrl"></p>
+    
+    <script>
+        function shortenUrl() {
+            const url = document.getElementById('urlInput').value;
+            fetch('https://api.shrtco.de/v2/shorten?url=' + url)
+                .then(response => response.json())
+                .then(data => {
+                    const shortenedUrl = data.result.full_short_link;
+                    document.getElementById('shortenedUrl').innerText = shortenedUrl;
+                })
+                .catch(error => console.log(error));
+        }
+    </script>
+</body>
+</html>
