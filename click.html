@@ -1,219 +1,93 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
+
 <head>
-</script>
-<noscript><div><img src="https://mc.yandex.ru/watch/97002075" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@1,500&display=swap" rel="stylesheet">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <link rel="icon" href="site.png">
     <meta charset="UTF-8">
-<meta name="keyword" content="Привет, игры, веб, разработка, ии, искуственный интеллект, видео игры, технологии">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mouvi</title>
-    </head>
-<body>
-    <header>
-        <h1><img src="site.png" alt="mouvi.lol" href="https://mouvi.lol" style="width: 200px;"></h1>
-    </header>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
-.button {
-  display: inline-block;
-  padding: 10px 20px;
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
-  text-decoration: none;
-  background-color: #1ed2e3;
-  color: #1C1C1C;
-  border-radius: 5px;
-  border: 2px solid #1ed2e3;
-  cursor: pointer;
-}
-
-.button:hover {
-  background-color: #00cccc;
-}
-::selection {
-background: #ff7733; /* Safari */
-}
-::-moz-selection {
-background: #ff7733; /* Firefox */
-}
-.montserrat-alternates-medium-italic {
-  font-family: "Montserrat Alternates", sans-serif;
-  font-weight: 500;
-  font-style: italic;
-}
-.fira-sans condensed-thin {
-  font-family: "Fira Sans Condensed", sans-serif;
-  font-weight: 100;
-  font-style: normal;
-}
-
-.fira-sans condensed-extralight {
-  font-family: "Fira Sans Condensed", sans-serif;
-  font-weight: 200;
-  font-style: normal;
-}
-
-.fira-sans condensed-light {
-  font-family: "Fira Sans Condensed", sans-serif;
-  font-weight: 300;
-  font-style: normal;
-}
-
-.fira-sans condensed-regular {
-  font-family: "Fira Sans Condensed", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.fira-sans condensed-medium {
-  font-family: "Fira Sans Condensed", sans-serif;
-  font-weight: 500;
-  font-style: normal;
-}
-
-.fira-sans condensed-semibold {
-  font-family: "Fira Sans Condensed", sans-serif;
-  font-weight: 600;
-  font-style: normal;
-}
-
-.fira-sans condensed-bold {
-  font-family: "Fira Sans Condensed", sans-serif;
-  font-weight: 700;
-  font-style: normal;
-}
-
-.fira-sans condensed-extrabold {
-  font-family: "Fira Sans Condensed", sans-serif;
-  font-weight: 800;
-  font-style: normal;
-}
-
-.fira-sans condensed-black {
-  font-family: "Fira Sans Condensed", sans-serif;
-  font-weight: 900;
-  font-style: normal;
-}
-
-.fira-sans condensed-thin-italic {
-  font-family: "Fira Sans Condensed", sans-serif;
-  font-weight: 100;
-  font-style: italic;
-}
-
-.fira-sans condensed-extralight-italic {
-  font-family: "Fira Sans Condensed", sans-serif;
-  font-weight: 200;
-  font-style: italic;
-}
-
-.fira-sans condensed-light-italic {
-  font-family: "Fira Sans Condensed", sans-serif;
-  font-weight: 300;
-  font-style: italic;
-}
-
-.fira-sans condensed-regular-italic {
-  font-family: "Fira Sans Condensed", sans-serif;
-  font-weight: 400;
-  font-style: italic;
-}
-
-.fira-sans condensed-medium-italic {
-  font-family: "Fira Sans Condensed", sans-serif;
-  font-weight: 500;
-  font-style: italic;
-}
-
-.fira-sans condensed-semibold-italic {
-  font-family: "Fira Sans Condensed", sans-serif;
-  font-weight: 600;
-  font-style: italic;
-}
-
-.fira-sans condensed-bold-italic {
-  font-family: "Fira Sans Condensed", sans-serif;
-  font-weight: 700;
-  font-style: italic;
-}
-
-.fira-sans condensed-extrabold-italic {
-  font-family: "Fira Sans Condensed", sans-serif;
-  font-weight: 800;
-  font-style: italic;
-}
-
-.fira-sans condensed-black-italic {
-  font-family: "Fira Sans Condensed", sans-serif;
-  font-weight: 900;
-  font-style: italic;
-}
-body {
-    background-image: url('tech-background.jpg');
-    background-size: cover;
-}
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f0f4;
-            margin: 0;
-            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .text {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #333;
+            /* Initial color */
+            position: relative;
+            animation: color-change 2s infinite;
+        }
+        
+        @keyframes color-change {
+            0% {
+                color: #ffffcc;
+            }
+            25% {
+                color: #ff7e00;
+            }
+            50% {
+                color: #efd334;
+            }
+            75% {
+                color: #f7d263;
+            }
+            100% {
+                color: #ffff99;
+            }
+        }
+        
+        .button {
+            padding: 1rem 2rem;
+            font-size: 1.25rem;
+            font-weight: bold;
             text-align: center;
+            text-decoration: none;
+            background-color: #1ed2e3;
+            color: #1C1C1C;
+            border-radius: 0.5rem;
+            border: 2px solid #1ed2e3;
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
-        header {
-            background-color: #ff8243;
-            color: white;
-            padding: 1em;
+        
+        .button:hover {
+            background-color: #00cccc;
         }
-        footer {
-            background-color: #ffb300;
-            color: white;
-            padding: 1em;
-            position: absolute;
-            bottom: 0;
-            width: 99%;
-            height: 60px;
-        }
-        .container {
-  width: 100%;
-  text-align: center;
-  margin-top: 50px;
-}
-.text {
-  font-size: 48px;
-  font-weight: bold;
-  color: #333; #efd334; #ffffcc; #ff7e00;
-  position: relative;
-  animation: color-change 2s infinite;
-}
-@keyframes color-change {
-  0% { color: #ffffcc; }
-  25% { color: #ff7e00; }
-  50% { color: #efd334; }
-  75% { color: #f7d263; }
-  100% { color: #ffff99; }
-}
-</body>
-</style>
-</head>
-<body>
-<div class="container">
-  <p style="font-family: 'Montserrat Alternates', sans-serif;" class="text">Просто кликер...</p>
-</div>
     </style>
 </head>
-    </header>
-    <section>
-        <button class="button" id="btn" onclick="increaseCount()">Нажми на меня!</button>
-    <h3 style="font-family: 'Fira Sans Condensed', sans-serif;"> Счетчик: <span id="count">0</span></h3>
 
+<body class="bg-gradient-to-br from-gray-800 to-gray-900 text-gray-200">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-orange-500 to-red-500 py-6">
+        <div class="container mx-auto flex justify-between items-center px-4">
+            <a href="https://mouvi.lol" class="flex items-center text-white font-bold text-xl">
+                <img src="https://mouvi.lol/site.png" alt="Mouvi" class="w-8 mr-2"> Mouvi
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto mt-8 px-4">
+        <div class="text-center mb-12">
+            <p class="text">Просто кликер...</p>
+        </div>
+
+        <section class="text-center mb-8">
+            <button class="button" id="btn" onclick="increaseCount()">Нажми на меня!</button>
+            <h3 class="mt-4">Счетчик: <span id="count" class="font-bold">0</span></h3>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center py-6 mt-8">
+        <p class="text-gray-600">© 2024 by mouvi.rework. Все права защищены.</p>
+        <p class="text-sm text-gray-600">Все вопросы по почте - <a href="mailto:help@mouvi.lol" class="underline">help@mouvi.lol</a></p>
+        <p class="text-sm text-gray-600">Спасибо за редизайн - <a href="https://discord.com/users/806895866971160646" class="underline">masezev'y</a></p>
+    </footer>
+
+    <!-- JavaScript for Counter -->
     <script>
         let count = 0;
 
@@ -222,11 +96,6 @@ body {
             document.getElementById("count").textContent = count;
         }
     </script>
-    </section>
- </section>
-<footer>
-    <p style="color: black">&copy; 2024 by mouvi.rework. Все права защищены.</p>
-<p style="color: black; "font-size: 14px;> Все вопросы по почте - help@mouvi.lol</p>
-</footer>
 </body>
+
 </html>
