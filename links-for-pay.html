@@ -1,215 +1,61 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
+
 <head>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@1,500&display=swap" rel="stylesheet">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <link rel="icon" href="site.png">
     <meta charset="UTF-8">
-<meta name="keyword" content="Привет, игры, веб, разработка, ии, искуственный интеллект, видео игры, технологии">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mouvi</title>
-    </head>
-<body>
-    <header>
-        <h1><img src="site.png" alt="mouvi.lol" href="https://mouvi.lol" style="width: 200px;"></h1>
-    </header>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
-#footer {
-    background-color: #ffb300;
-}
-a {
-            color: #ff9900; /* Цвет ссылок */
-            text-decoration: none; /* Убирает подчеркивание ссылок */
-               }
-::selection {
-background: #ff7733; /* Safari */
-}
-::-moz-selection {
-background: #ff7733; /* Firefox */
-}
-.montserrat-alternates-medium-italic {
-  font-family: "Montserrat Alternates", sans-serif;
-  font-weight: 500;
-  font-style: italic;
-}
-.fira-sans condensed-thin {
-  font-family: "Fira Sans Condensed", sans-serif;
-  font-weight: 100;
-  font-style: normal;
-}
-
-.fira-sans condensed-extralight {
-  font-family: "Fira Sans Condensed", sans-serif;
-  font-weight: 200;
-  font-style: normal;
-}
-
-.fira-sans condensed-light {
-  font-family: "Fira Sans Condensed", sans-serif;
-  font-weight: 300;
-  font-style: normal;
-}
-
-.fira-sans condensed-regular {
-  font-family: "Fira Sans Condensed", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.fira-sans condensed-medium {
-  font-family: "Fira Sans Condensed", sans-serif;
-  font-weight: 500;
-  font-style: normal;
-}
-
-.fira-sans condensed-semibold {
-  font-family: "Fira Sans Condensed", sans-serif;
-  font-weight: 600;
-  font-style: normal;
-}
-
-.fira-sans condensed-bold {
-  font-family: "Fira Sans Condensed", sans-serif;
-  font-weight: 700;
-  font-style: normal;
-}
-
-.fira-sans condensed-extrabold {
-  font-family: "Fira Sans Condensed", sans-serif;
-  font-weight: 800;
-  font-style: normal;
-}
-
-.fira-sans condensed-black {
-  font-family: "Fira Sans Condensed", sans-serif;
-  font-weight: 900;
-  font-style: normal;
-}
-
-.fira-sans condensed-thin-italic {
-  font-family: "Fira Sans Condensed", sans-serif;
-  font-weight: 100;
-  font-style: italic;
-}
-
-.fira-sans condensed-extralight-italic {
-  font-family: "Fira Sans Condensed", sans-serif;
-  font-weight: 200;
-  font-style: italic;
-}
-
-.fira-sans condensed-light-italic {
-  font-family: "Fira Sans Condensed", sans-serif;
-  font-weight: 300;
-  font-style: italic;
-}
-
-.fira-sans condensed-regular-italic {
-  font-family: "Fira Sans Condensed", sans-serif;
-  font-weight: 400;
-  font-style: italic;
-}
-
-.fira-sans condensed-medium-italic {
-  font-family: "Fira Sans Condensed", sans-serif;
-  font-weight: 500;
-  font-style: italic;
-}
-
-.fira-sans condensed-semibold-italic {
-  font-family: "Fira Sans Condensed", sans-serif;
-  font-weight: 600;
-  font-style: italic;
-}
-
-.fira-sans condensed-bold-italic {
-  font-family: "Fira Sans Condensed", sans-serif;
-  font-weight: 700;
-  font-style: italic;
-}
-
-.fira-sans condensed-extrabold-italic {
-  font-family: "Fira Sans Condensed", sans-serif;
-  font-weight: 800;
-  font-style: italic;
-}
-
-.fira-sans condensed-black-italic {
-  font-family: "Fira Sans Condensed", sans-serif;
-  font-weight: 900;
-  font-style: italic;
-}
-body {
-    background-image: url('tech-background.jpg');
-    background-size: cover;
-}
+        /* Add any additional styles here */
+        
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f0f4;
-            margin: 0;
-            padding: 0;
-            text-align: center;
+            font-family: 'Montserrat', sans-serif;
         }
-        header {
-            background-color: #ff8243;
-            color: white;
-            padding: 1em;
-        }
-         footer {
-            background-color: #ffb300;
-            color: white;
-            padding: 1em;
-            position: absolute;
-            bottom: 0;
-            width: 99%;
-            height: 60px;
-        }
-        .container {
-  width: 100%;
-  text-align: center;
-  margin-top: 50px;
-}
-.text {
-  font-size: 48px;
-  font-weight: bold;
-  color: #333; #efd334; #ffffcc; #ff7e00;
-  position: relative;
-  animation: color-change 2s infinite;
-}
-@keyframes color-change {
-  0% { color: #ffffcc; }
-  25% { color: #ff7e00; }
-  50% { color: #efd334; }
-  75% { color: #f7d263; }
-  100% { color: #ffff99; }
-}
-
-</body>
-</style>
-</head>
-<body>
-<div class="container">
-  <p style="font-family: 'Montserrat Alternates', sans-serif;" class="text">Заранее спасибо за поддержку!</p>
-</div>
     </style>
 </head>
-<body> 
-    </header>
-    <section>
-        <h1 style="font-family: 'Montserrat Alternates', sans-serif;">Ссылочки</h1>
-        <p style="font-family: 'Fira Sans Condensed', sans-serif;">Boosty: <a href="https://boosty.to/stalkermitya">Нажми</a></p>
-        <p style="font-family: 'Fira Sans Condensed', sans-serif;">Тинькофф: <a href="https://www.tinkoff.ru/rm/berenko.dmitriy1/up3Bq68639">Нажми</a>.</p>
-        <p style="font-family: 'Fira Sans Condensed', sans-serif;">Donation Alerts: <a href="https://www.donationalerts.com/r/mouvi">Нажми</a>.</p>
-    </section>
 
-     </section>
-<footer>
-<p style="color: black">&copy; 2024 by mouvi.rework. Все права защищены.</p>
-<p style="color: black; "font-size: 14px;> Все вопросы по почте - help@mouvi.lol</p>
-</footer>
+<body class="bg-gray-900 text-gray-200">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-orange-500 to-red-500 py-6">
+        <div class="container mx-auto flex justify-between items-center px-4">
+            <a href="https://mouvi.lol" class="flex items-center text-white font-bold text-xl">
+                <img src="https://mouvi.lol/site.png" alt="Mouvi" class="w-8 mr-2"> Mouvi
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto mt-8 px-4">
+        <section class="text-center">
+            <h1 class="text-4xl font-bold text-gray-200 mb-4">Поддержать меня</h1>
+            <p class="text-lg text-gray-300">Заранее спасибо за поддержку.</p>
+        </section>
+
+        <section class="mt-8">
+            <h2 class="text-2xl font-bold text-gray-200 mb-4">Ссылочки</h2>
+            <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <li class="bg-gray-800 shadow-md p-4 rounded-md">
+                    <span class="text-lg font-semibold text-gray-200">Boosty:</span>
+                    <a href="https://boosty.to/stalkermitya" class="text-blue-500 hover:underline">Клик</a>
+                </li>
+                <li class="bg-gray-800 shadow-md p-4 rounded-md">
+                    <span class="text-lg font-semibold text-gray-200">Тинькофф:</span>
+                    <a href="https://www.tinkoff.ru/rm/berenko.dmitriy1/up3Bq68639/" class="text-blue-500 hover:underline">Клик</a>
+                </li>
+                <li class="bg-gray-800 shadow-md p-4 rounded-md">
+                    <span class="text-lg font-semibold text-gray-200">Donation Alerts:</span>
+                    <a href="https://www.donationalerts.com/r/mouvi" class="text-blue-500 hover:underline">Клик</a>
+            </ul>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center py-6 mt-8">
+        <p class="text-gray-600">© 2024 by mouvi.rework. Все права защищены.</p>
+        <p class="text-gray-600 text-sm">Все вопросы по почте - <a href="mailto:help@mouvi.lol" class="underline">help@mouvi.lol</a></p>
+        <p class="text-sm text-gray-600">Спасибо за редизайн - <a href="https://discord.com/users/806895866971160646" class="underline">masezev'y</a></p>
+    </footer>
 </body>
+
 </html>
