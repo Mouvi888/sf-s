@@ -46,7 +46,7 @@
                 const data = await response.json();
                 document.getElementById('result').innerText = 'Сокращенный URL: '  <a href='+ data.link'>+ data.link</a>;
             } else {
-                document.getElementById('result').innerText = 'Ошибка: ' + response.statusText;
+                document.getElementById('result').innerText = 'Ошибка: некоректная ссылка ' + response.statusText;
             }
         }
     </script>
