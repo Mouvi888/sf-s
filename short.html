@@ -8,7 +8,9 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            margin-top: 50px;
+            margin-top: 50px; 
+            background-color: bg-gray-900;
+
         }
         input {
             width: 300px;
@@ -44,7 +46,11 @@
     <input type="text" id="url" placeholder="Введите URL для сокращения">
     <button class="button" onclick="shortenURL()">Сократить</button>
     <div id="result"></div>
-    <body class="bg-gray-900 text-gray-200">
+    body {
+
+  background-color: #ff0000;
+
+}>
 
     <script>
         async function shortenURL() {
