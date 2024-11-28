@@ -40,31 +40,11 @@
         }
     </style>
 </head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Сайт визитка принадлежащая Mouvi">
-    <title>Mouvi | Сайт визитка</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <style>
-        /* Add any additional styles here */
-        
-        body {
-            font-family: 'Montserrat', sans-serif;
-        }
-    </style>
-</head>
-
-<body class="bg-gray-900 text-gray-200">
-    <!-- Header -->
-    <header class="bg-gradient-to-r from-orange-500 to-red-500 py-6">
-        <div class="container mx-auto flex justify-between items-center px-4">
-            <a href="https://mouvi.lol" class="flex items-center text-white font-bold text-xl">
-                <img src="https://mouvi.lol/site.png" alt="Mouvi" class="w-8 mr-2"> Mouvi
-            </a>
-        </div>
-    </header>
-
-}>
+<body>
+    <h1>Сокращение URL</h1>
+    <input type="text" id="url" placeholder="Введите URL для сокращения">
+    <button onclick="shortenURL()">Сократить</button>
+    <div id="result"></div>
 
     <script>
         async function shortenURL() {
