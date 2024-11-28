@@ -44,7 +44,7 @@
 
             if (response.ok) {
                 const data = await response.json();
-                document.getElementById('result').innerText = 'Сокращенный URL: ' + data.link;
+                document.getElementById('result').innerText = 'Сокращенный URL: '  <a href='+ data.link'>+ data.link</a>;
             } else {
                 document.getElementById('result').innerText = 'Ошибка: ' + response.statusText;
             }
