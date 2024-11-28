@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сокращение URL</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        input {
+            width: 300px;
+            padding: 10px;
+        }
+        button {
+            padding: 10px;
+        }
+        #result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Сокращение URL</h1>
+    <input type="text" id="url" placeholder="Введите URL для сокращения">
+    <button onclick="shortenURL()">Сократить</button>
+    <div id="result"></div>
+
+    <script>
+        function shortenURL() {
+            const url = document.getElementById('url').value;
+            // В данном месте должен быть вызов к API для сокращения URL
+            // Здесь просто пример, как это может выглядеть:
+            const shortenedURL = 'https://goo.gl' + btoa(url); // Пример сокращения
+            document.getElementById('result').innerText = 'Сокращенный URL: ' + shortenedURL;
+        }
+    </script>
+</body>
+</html>
