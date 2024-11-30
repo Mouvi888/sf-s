@@ -26,6 +26,23 @@ input[type="text"]:focus {
         body {
             font-family: 'Montserrat', sans-serif;
         }
+.button {
+            padding: 1rem 2rem;
+            font-size: 1.25rem;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            background-color: #bc1ee3;
+            color: #1C1C1C;
+            border-radius: 0.5rem;
+            border: 2px solid #1ed2e3;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .button:hover {
+            background-color: #9e1bbf;
+        }
     </style>
 </head>
 
@@ -47,7 +64,7 @@ input[type="text"]:focus {
         </section>
    <h1>Сокращение URL</h1>
     <input type="text" id="url" placeholder="Введите URL для сокращения">
-    <button onclick="shortenURL()">Сократить</button> 
+    <button class=button onclick="shortenURL()">Сократить</button> 
     <div id="result"></div>
     <script>
         async function shortenURL() {
