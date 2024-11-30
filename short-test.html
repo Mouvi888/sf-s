@@ -8,8 +8,21 @@
     <title>Mouvi | Сократитель ссылок</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
-        /* Add any additional styles here */
-        
+input[type="text"] {
+    width: 100%;
+    padding: 12px; / Внутренний отступ /
+    border: 2px solid #f97316; / Цвет рамки /
+    border-radius: 8px; / Закругление углов /
+    background-color: #1f2937; / Цвет фона /
+    color: #ffffff; / Цвет текста /
+    font-size: 16px; / Размер шрифта /
+    transition: border 0.3s; / Плавный переход рамки /
+}
+
+input[type="text"]:focus {
+    border-color: #b55512; / Цвет рамки при фокусе /
+    outline: none; / Убираем стандартный контур /
+}
         body {
             font-family: 'Montserrat', sans-serif;
         }
