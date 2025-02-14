@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🩷🩷🩷</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f8f8f8;
+        }
+        .valentine {
+            display: none;
+            background-color: #ffcccc;
+            border: 2px solid #ff6666;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .valentine h1 {
+            margin: 0;
+            color: #ff3366;
+        }
+        .close-btn {
+            margin-top: 10px;
+            padding: 5px 10px;
+            background-color: #ff6666;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="valentine" id="valentine">
+    <h1>С 14 февраля моя бусинка😘!</h1>
+    <p>Пусть твоя жизнь будет наполнена любовью и счастьем!</p>
+    <button class="close-btn" onclick="closeValentine()">Закрыть</button>
+</div>
+
+<script>
+    window.onload = function() {
+        document.getElementById('valentine').style.display = 'block';
+    }
+
+    function closeValentine() {
+        document.getElementById('valentine').style.display = 'none';
+    }
+</script>
+
+</body>
+</html>
