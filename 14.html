@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🩷🩷🩷</title>
+    <title>Сердечко к 14 февраля</title>
     <style>
         body {
             display: flex;
@@ -13,47 +13,61 @@
             margin: 0;
             background-color: #f8f8f8;
         }
-        .valentine {
-            display: none;
-            background-color: #ffcccc;
-            border: 2px solid #ff6666;
-            border-radius: 15px;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+        .heart {
+            width: 100px;
+            height: 100px;
+            background-color: #ff3366;
+            position: relative;
+            transform: rotate(-45deg);
+            animation: pulse 1s infinite;
+            display: none; /* Скрываем сердечко изначально */
         }
-        .valentine h1 {
-            margin: 0;
-            color: #ff3366;
+
+        .heart::before,
+        .heart::after {
+            content: '';
+            width: 100px;
+            height: 100px;
+            background-color: #ff3366;
+            border-radius: 50%;
+            position: absolute;
         }
-        .close-btn {
-            margin-top: 10px;
-            padding: 5px 10px;
-            background-color: #ff6666;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+
+        .heart::before {
+            top: -50px;
+            left: 0;
+        }
+
+        .heart::after {
+            left: 50px;
+            top: 0;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
         }
     </style>
 </head>
 <body>
 
-<div class="valentine" id="valentine">
-    <h1>С 14 февраля моя бусинка😘!</h1>
-    <p>Пусть твоя жизнь будет наполнена любовью и счастьем!</p>
-    <button class="close-btn" onclick="closeValentine()">Закрыть</button>
-</div>
+    <div class="heart" id="heart"></div>
 
-<script>
-    window.onload = function() {
-        document.getElementById('valentine').style.display = 'block';
-    }
-
-    function closeValentine() {
-        document.getElementById('valentine').style.display = 'none';
-    }
-</script>
+    <script>
+        window.onload = function() {
+            const heart = document.getElementById('heart');
+            heart.style.display = 'block'; // Показываем сердечко
+            heart.style.animation = 'pulse 1s infinite'; // Запускаем анимацию
+        };
+    </script>
 
 </body>
 </html>
