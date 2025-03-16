@@ -9,7 +9,6 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -30,23 +29,11 @@
         .hidden {
             display: none;
         }
-        .loader {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #1a202c;
-        }
     </style>
 </head>
 <body>
-    <!-- Проверка Cloudflare Turnstile -->
-    <div id="turnstile-check" class="loader">
-        <div class="cf-turnstile" data-sitekey="0x4AAAAAABBALs_mVVPozEgE" data-callback="onTurnstileSuccess"></div>
-    </div>
-
-    <!-- Основной контент, скрытый до проверки -->
-    <div id="main-content" class="hidden">
+    <!-- Основной контент -->
+    <div id="main-content">
         <!-- Header -->
         <header class="bg-gradient-to-r from-orange-500 to-red-500 py-8 shadow-lg parallax" style="background-image: url('https://www.transparenttextures.com/patterns/dark-geometric.png');">
             <div class="container mx-auto flex justify-between items-center px-4">
@@ -156,20 +143,6 @@
 
         document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
         window.addEventListener('load', loadTheme);
-
-        function onTurnstileSuccess(token) {
-            // Скрываем проверку и показываем основной контент
-            document.getElementById('turnstile-check').classList.add('hidden');
-            document.getElementById('main-content').classList.remove('hidden');
-        }
-
-        function onTurnstileError() {
-            alert('Ошибка проверки. Пожалуйста, попробуйте снова.');
-        }
-
-        function onTurnstileExpired() {
-            alert('Проверка истекла. Пожалуйста, обновите страницу.');
-        }
     </script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
