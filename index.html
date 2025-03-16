@@ -11,7 +11,6 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <style>
-        /* Ваши текущие стили */
         body {
             font-family: 'Inter', sans-serif;
             background: linear-gradient(-45deg, #1a202c, #2d3748, #4a5568, #1a202c);
@@ -38,28 +37,11 @@
             height: 100vh;
             background-color: #1a202c;
         }
-        .loader .dot {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            margin: 0 5px;
-            animation: jump 0.6s infinite alternate;
-        }
-        .dot1 { animation-delay: 0.1s; background-color: #ff69b4; }
-        .dot2 { animation-delay: 0.2s; background-color: #ff69b4; }
-        .dot3 { animation-delay: 0.4s; background-color: #ff4500; }
-        @keyframes jump {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-20px); }
-        }
     </style>
 </head>
 <body>
     <!-- Проверка Cloudflare Turnstile -->
     <div id="turnstile-check" class="loader">
-        <div class="dot dot1"></div>
-        <div class="dot dot2"></div>
-        <div class="dot dot3"></div>
         <div class="cf-turnstile" data-sitekey="0x4AAAAAABBALs_mVVPozEgE" data-callback="onTurnstileSuccess"></div>
     </div>
 
