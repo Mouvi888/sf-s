@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="shortcut icon" href="https://mouvi.lol/site.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Проверка безопасности</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(-45deg, #1a202c, #2d3748, #4a5568, #1a202c);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #E2E8F0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .checking {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="checking">
+        <h1 class="text-4xl font-bold mb-6">Проверка безопасности</h1>
+        <p class="text-xl mb-6">Пожалуйста, подтвердите, что вы не робот.</p>
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAABBALs_mVVPozEgE" data-callback="onTurnstileSuccess"></div>
+    </div>
+
+    <script>
+        function onTurnstileSuccess(token) {
+            // После успешной проверки перенаправляем на основную страницу
+            window.location.href = "main.html"; // Замените на имя вашей основной страницы
+        }
+
+        function onTurnstileError() {
+            alert('Ошибка проверки. Пожалуйста, попробуйте снова.');
+        }
+
+        function onTurnstileExpired() {
+            alert('Проверка истекла. Пожалуйста, обновите страницу.');
+        }
+    </script>
+</body>
+</html>
