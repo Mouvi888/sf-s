@@ -65,6 +65,36 @@
             0% { transform: scale(0.9); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
         }
+
+        /* Светлая тема */
+        body.light-theme {
+            background: linear-gradient(-45deg, #f3f4f6, #e5e7eb, #d1d5db, #f3f4f6);
+            color: #1a202c;
+        }
+
+        .light-theme .card {
+            background-color: rgba(255, 255, 255, 0.8);
+            color: #1a202c;
+        }
+
+        .light-theme .btn {
+            background: linear-gradient(90deg, #ff7e5f, #feb47b);
+            color: white;
+        }
+
+        .light-theme footer p {
+            color: #4a5568;
+        }
+
+        .light-theme .highlight {
+            background: linear-gradient(90deg, #ff7e5f, #feb47b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .light-theme h2.text-white {
+            color: #1a202c; /* Темный цвет текста для светлой темы */
+        }
     </style>
 </head>
 
@@ -75,8 +105,9 @@
             <a href="https://mouvi.lol" class="flex items-center text-white font-bold text-3xl hover-scale">
                 <img src="https://mouvi.lol/site.png" alt="Mouvi" class="w-10 mr-2"> Mouvi
             </a>
+            <!-- Кнопка переключения темы -->
             <button id="theme-toggle" class="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors">
-                <span id="theme-icon">🌙</span>
+                <span id="theme-icon">🌙</span> <!-- Иконка для темной темы -->
             </button>
         </div>
     </header>
@@ -130,6 +161,7 @@
         setInterval(updateDateTime, 1000);
         updateDateTime();
 
+        // Функция для переключения темы
         function toggleTheme() {
             const body = document.body;
             const themeIcon = document.getElementById('theme-icon');
@@ -137,15 +169,16 @@
 
             if (isDarkTheme) {
                 body.classList.remove('light-theme');
-                themeIcon.textContent = '🌙';
+                themeIcon.textContent = '🌙'; // Иконка для темной темы
                 localStorage.setItem('theme', 'dark');
             } else {
                 body.classList.add('light-theme');
-                themeIcon.textContent = '☀️';
+                themeIcon.textContent = '☀️'; // Иконка для светлой темы
                 localStorage.setItem('theme', 'light');
             }
         }
 
+        // Проверка сохраненной темы при загрузке страницы
         function loadTheme() {
             const savedTheme = localStorage.getItem('theme');
             const body = document.body;
@@ -160,7 +193,10 @@
             }
         }
 
+        // Назначение обработчика события на кнопку
         document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+
+        // Загрузка темы при загрузке страницы
         window.addEventListener('load', loadTheme);
     </script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
