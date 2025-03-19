@@ -1,11 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <div class="loader">
-          <div class="dot1"></div>
-          <div class="dot2"></div>
-          <div class="dot3"></div>
-        </div>
     <link rel="shortcut icon" href="https://mouvi.lol/site.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,6 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -241,65 +237,74 @@
         }
     </style>
 </head>
-
 <body>
-    <!-- Header -->
-    <header class="bg-gradient-to-r from-orange-500 to-red-500 py-8 shadow-lg parallax" style="background-image: url('https://www.transparenttextures.com/patterns/dark-geometric.png');">
-        <div class="container mx-auto flex justify-between items-center px-4">
-            <a href="https://mouvi.lol" class="flex items-center text-white font-bold text-3xl hover-scale">
-                <img src="https://mouvi.lol/site.png" alt="Mouvi" class="w-10 mr-2"> Mouvi
-            </a>
-            <!-- Кнопка переключения темы -->
-            <button id="theme-toggle" class="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors">
-                <span id="theme-icon">🌙</span> <!-- Иконка для темной темы -->
-            </button>
-        </div>
-    </header>
+    <!-- Проверка безопасности -->
+    <div id="turnstile-check" class="checking">
+        <h1 class="text-4xl font-bold mb-6">Проверка безопасности</h1>
+        <p class="text-xl mb-6">Пожалуйста, подтвердите, что вы не робот.</p>
+        <!-- Виджет Cloudflare Turnstile -->
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAABBALs_mVVPozEqE" data-callback="onTurnstileSuccess"></div>
+    </div>
 
-    <!-- Main Content -->
-    <main class="container mx-auto p-4 main-content">
-        <section class="text-center wave">
-            <h1 class="text-6xl font-bold mb-6 text-pop">Привет, я <span class="highlight">Mouvi</span>!</h1>
-            <!-- Место для фото 1:1 -->
-            <div class="profile-image-container">
-                <img src="https://mouvi.lol/mouvi.jpg" alt="#" class="profile-image">
+    <!-- Основной контент, скрытый до проверки -->
+    <div id="main-content" class="hidden">
+        <!-- Header -->
+        <header class="bg-gradient-to-r from-orange-500 to-red-500 py-8 shadow-lg parallax" style="background-image: url('https://www.transparenttextures.com/patterns/dark-geometric.png');">
+            <div class="container mx-auto flex justify-between items-center px-4">
+                <a href="https://mouvi.lol" class="flex items-center text-white font-bold text-3xl hover-scale">
+                    <img src="https://mouvi.lol/site.png" alt="Mouvi" class="w-10 mr-2"> Mouvi
+                </a>
+                <button id="theme-toggle" class="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors">
+                    <span id="theme-icon">🌙</span>
+                </button>
             </div>
-            <p class="text-xl mb-10 text-pop">Я играю в сталкрафт и немного знаю <span class="highlight">HTML</span> и <span class="highlight">Python</span>.</p>
-        </section>
+        </header>
 
-        <section class="mt-8">
-            <h2 class="text-4xl font-bold mb-8 text-center text-white text-pop">Способы связи со мной и другие страницы моего сайта</h2>
-            <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <li class="card p-6 text-center hover-scale">
-                    <a href="mailto:help@mouvi.lol" class="btn">Email</a>
-                </li>
-                <li class="card p-6 text-center hover-scale">
-                    <a href="https://vk.com/mouvi" class="btn">ВКонтакте</a>
-                </li>
-                <li class="card p-6 text-center hover-scale">
-                    <a href="https://discord.com/users/913046296808546325" class="btn">Дискорд</a>
-                </li>
-                <li class="card p-6 text-center hover-scale">
-                    <a href="https://mouvi.lol/click" class="btn">Кликер</a>
-                </li>
-                <li class="card p-6 text-center hover-scale">
-                    <a href="#" class="btn">Скоро...</a>
-                </li>
-                <li class="card p-6 text-center hover-scale">
-                    <a href="#" class="btn">Скоро...</a>
-                </li>
-            </ul>
-        </section>
-    </main>
+        <!-- Main Content -->
+        <main class="container mx-auto p-4 main-content">
+            <section class="text-center wave">
+                <h1 class="text-6xl font-bold mb-6 text-pop">Привет, я <span class="highlight">Mouvi</span>!</h1>
+                <div class="profile-image-container">
+                    <img src="https://mouvi.lol/mouvi.jpg" alt="#" class="profile-image">
+                </div>
+                <p class="text-xl mb-10 text-pop">Я играю в сталкрафт и немного знаю <span class="highlight">HTML</span> и <span class="highlight">Python</span>.</p>
+            </section>
 
-    <!-- Футер -->
-    <footer>
-        <div class="p-4 text-center">
-            <p class="text-gray-300">© 2025 by mouvi.rework. Все права защищены.</p>
-            <p class="text-gray-300 text-sm">Все вопросы по почте - <a href="mailto:help@mouvi.lol" class="underline">help@mouvi.lol</a></p>
-            <p id="datetime" class="text-gray-300 text-sm mt-2"></p>
-        </div>
-    </footer>
+            <section class="mt-8">
+                <h2 class="text-4xl font-bold mb-8 text-center text-white text-pop">Способы связи со мной и другие страницы моего сайта</h2>
+                <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <li class="card p-6 text-center hover-scale">
+                        <a href="mailto:help@mouvi.lol" class="btn">Email</a>
+                    </li>
+                    <li class="card p-6 text-center hover-scale">
+                        <a href="https://vk.com/mouvi" class="btn">ВКонтакте</a>
+                    </li>
+                    <li class="card p-6 text-center hover-scale">
+                        <a href="https://discord.com/users/913046296808546325" class="btn">Дискорд</a>
+                    </li>
+                    <li class="card p-6 text-center hover-scale">
+                        <a href="https://mouvi.lol/click" class="btn">Кликер</a>
+                    </li>
+                    <li class="card p-6 text-center hover-scale">
+                        <a href="#" class="btn">Скоро...</a>
+                    </li>
+                    <li class="card p-6 text-center hover-scale">
+                        <a href="#" class="btn">Скоро...</a>
+                    </li>
+                </ul>
+            </section>
+        </main>
+
+        <!-- Футер -->
+        <footer>
+            <div class="p-4 text-center">
+                <p class="text-gray-300">© 2025 by mouvi.rework. Все права защищены.</p>
+                <p class="text-gray-300 text-sm">Все вопросы по почте - <a href="mailto:help@mouvi.lol" class="underline">help@mouvi.lol</a></p>
+                <p id="datetime" class="text-gray-300 text-sm mt-2"></p>
+            </div>
+        </footer>
+    </div>
+
     <script>
         function updateDateTime() {
             const now = new Date();
@@ -317,16 +322,9 @@
             document.getElementById('datetime').textContent = formattedDateTime;
         }
 
-        // Обновляем время каждую секунду
         setInterval(updateDateTime, 1000);
-
-        // Инициализируем время сразу после загрузки страницы
         updateDateTime();
-    </script>
 
-    <!-- Скрипт для переключения темы -->
-    <script>
-        // Функция для переключения темы
         function toggleTheme() {
             const body = document.body;
             const themeIcon = document.getElementById('theme-icon');
@@ -334,16 +332,15 @@
 
             if (isDarkTheme) {
                 body.classList.remove('light-theme');
-                themeIcon.textContent = '🌙'; // Иконка для темной темы
+                themeIcon.textContent = '🌙';
                 localStorage.setItem('theme', 'dark');
             } else {
                 body.classList.add('light-theme');
-                themeIcon.textContent = '☀️'; // Иконка для светлой темы
+                themeIcon.textContent = '☀️';
                 localStorage.setItem('theme', 'light');
             }
         }
 
-        // Проверка сохраненной темы при загрузке страницы
         function loadTheme() {
             const savedTheme = localStorage.getItem('theme');
             const body = document.body;
@@ -358,11 +355,22 @@
             }
         }
 
-        // Назначение обработчика события на кнопку
         document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
-
-        // Загрузка темы при загрузке страницы
         window.addEventListener('load', loadTheme);
+
+        function onTurnstileSuccess(token) {
+            // Скрываем проверку и показываем основной контент
+            document.getElementById('turnstile-check').classList.add('hidden');
+            document.getElementById('main-content').classList.remove('hidden');
+        }
+
+        function onTurnstileError() {
+            alert('Ошибка проверки. Пожалуйста, попробуйте снова.');
+        }
+
+        function onTurnstileExpired() {
+            alert('Проверка истекла. Пожалуйста, обновите страницу.');
+        }
     </script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
