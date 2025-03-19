@@ -27,6 +27,10 @@
         }
         .checking {
             text-align: center;
+            background-color: rgba(45, 55, 72, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
@@ -34,13 +38,14 @@
     <div class="checking">
         <h1 class="text-4xl font-bold mb-6">Проверка безопасности</h1>
         <p class="text-xl mb-6">Пожалуйста, подтвердите, что вы не робот.</p>
-        <div class="cf-turnstile" data-sitekey="0x4AAAAAABBALs_mVVPozEgE" data-callback="onTurnstileSuccess"></div>
+        <!-- Виджет Cloudflare Turnstile -->
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAABBALmH3H86tLUiSb742FPT8SpQ" data-callback="onTurnstileSuccess"></div>
     </div>
 
     <script>
         function onTurnstileSuccess(token) {
             // После успешной проверки перенаправляем на основную страницу
-            window.location.href = "index.html"; // Замените на имя вашей основной страницы
+            window.location.href = "main.html"; // Замените на имя вашей основной страницы
         }
 
         function onTurnstileError() {
