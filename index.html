@@ -235,6 +235,29 @@
             animation-delay: 0.4s;
             background-color: #ff4500; /* Темно-оранжевый цвет */
         }
+@keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .hidden {
+            display: none;
+        }
+        .checking {
+            text-align: center;
+            background-color: rgba(45, 55, 72, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .success {
+            color: green;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
