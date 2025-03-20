@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <link rel="shortcut icon" href="https://mouvi.lol/site.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Сайт визитка принадлежит Mouvi">
+    <title>Mouvi | Speedtest</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(-45deg, #1a202c, #2d3748, #4a5568, #1a202c);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #E2E8F0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .card {
+            transition: transform 0.3s, box-shadow 0.3s, background-color 0.5s ease, color 0.5s ease;
+            border-radius: 15px;
+            background-color: rgba(45, 55, 72, 0.8);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3), 0 0 15px rgba(255, 126, 95, 0.5);
+        }
+
+        .btn {
+            background: linear-gradient(90deg, #ff7e5f, #feb47b);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: transform 0.3s, box-shadow 0.3s, background 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 126, 95, 0.4), 0 0 20px rgba(255, 126, 95, 0.6);
+        }
+
+        .text-pop {
+            animation: textPop 1s ease-in-out;
+        }
+
+        @keyframes textPop {
+            0% { transform: scale(0.9); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Светлая тема */
+        body.light-theme {
+            background: linear-gradient(-45deg, #f3f4f6, #e5e7eb, #d1d5db, #f3f4f6);
+            color: #1a202c;
+        }
+
+        .light-theme .card {
+            background-color: rgba(255, 255, 255, 0.8);
+            color: #1a202c;
+        }
+
+        .light-theme .btn {
+            background: linear-gradient(90deg, #ff7e5f, #feb47b);
+            color: white;
+        }
+
+        .light-theme footer p {
+            color: #4a5568;
+        }
+
+        .light-theme .highlight {
+            background: linear-gradient(90deg, #ff7e5f, #feb47b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .light-theme h2.text-white {
+            color: #1a202c; /* Темный цвет текста для светлой темы */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-orange-500 to-red-500 py-8 shadow-lg parallax" style="background-image: url('https://www.transparenttextures.com/patterns/dark-geometric.png');">
+        <div class="container mx-auto flex justify-between items-center px-4">
+            <a href="https://mouvi.lol" class="flex items-center text-white font-bold text-3xl hover-scale">
+                <img src="https://mouvi.lol/site.png" alt="Mouvi" class="w-10 mr-2"> Mouvi
+            </a>
+            <!-- Кнопка переключения темы -->
+            <button id="theme-toggle" class="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors">
+                <span id="theme-icon">🌙</span> <!-- Иконка для темной темы -->
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto p-4 main-content">
+        <section class="text-center wave">
+            <h1 class="text-6xl font-bold mb-6 text-pop">Speedtest</h1>
+            <p class="text-xl mb-10 text-pop">Проверьте скорость вашего интернета</p>
+        </section>
+
+        <!-- Speedtest Section -->
+        <section class="text-center mb-8">
+            <button class="btn" id="start-test-btn" onclick="startSpeedTest()">Начать тест</button>
+            <div class="mt-8 space-y-4">
+                <div class="card p-6">
+                    <h3 class="text-2xl font-bold">Пинг</h3>
+                    <p id="ping-result" class="text-xl">—</p>
+                </div>
+                <div class="card p-6">
+                    <h3 class="text-2xl font-bold">Скорость загрузки</h3>
+                    <p id="download-result" class="text-xl">—</p>
+                </div>
+                <div class="card p-6">
+                    <h3 class="text-2xl font-bold">Скорость отдачи</h3>
+                    <p id="upload-result" class="text-xl">—</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Футер -->
+    <footer>
+        <div class="p-4 text-center">
+            <p class="text-gray-300">© 2025 by mouvi.rework. Все права защищены.</p>
+            <p class="text-gray-300 text-sm">Все вопросы по почте - <a href="mailto:help@mouvi.lol" class="underline">help@mouvi.lol</a></p>
+            <p id="datetime" class="text-gray-300 text-sm mt-2"></p>
+        </div>
+    </footer>
+
+    <script>
+        const serverUrl = "http://localhost:3000"; // URL сервера для тестирования
+
+        async function startSpeedTest() {
+            await testPing();
+            await testDownloadSpeed();
+            await testUploadSpeed();
+        }
+
+        // Тест пинга
+        async function testPing() {
+            const startTime = performance.now();
+            await fetch(`${serverUrl}/ping`);
+            const endTime = performance.now();
+            const ping = (endTime - startTime).toFixed(2);
+            document.getElementById("ping-result").textContent = `${ping} мс`;
+        }
+
+        // Тест скорости загрузки
+        async function testDownloadSpeed() {
+            const startTime = performance.now();
+            const response = await fetch(`${serverUrl}/download`);
+            const blob = await response.blob();
+            const endTime = performance.now();
+            const duration = (endTime - startTime) / 1000; // В секундах
+            const speed = (blob.size / duration / 1024 / 1024).toFixed(2); // В МБ/с
+            document.getElementById("download-result").textContent = `${speed} МБ/с`;
+        }
+
+        // Тест скорости отдачи
+        async function testUploadSpeed() {
+            const dummyData = new Blob([new ArrayBuffer(10 * 1024 * 1024)]); // 10 МБ данных
+            const startTime = performance.now();
+            await fetch(`${serverUrl}/upload`, {
+                method: 'POST',
+                body: dummyData,
+            });
+            const endTime = performance.now();
+            const duration = (endTime - startTime) / 1000; // В секундах
+            const speed = (dummyData.size / duration / 1024 / 1024).toFixed(2); // В МБ/с
+            document.getElementById("upload-result").textContent = `${speed} МБ/с`;
+        }
+
+        // Обновление даты и времени
+        function updateDateTime() {
+            const now = new Date();
+            const options = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                timeZoneName: 'short'
+            };
+            const formattedDateTime = now.toLocaleDateString('ru-RU', options);
+            document.getElementById('datetime').textContent = formattedDateTime;
+        }
+
+        setInterval(updateDateTime, 1000);
+        updateDateTime();
+
+        // Переключение темы
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('theme-icon');
+            const isDarkTheme = body.classList.contains('light-theme');
+
+            if (isDarkTheme) {
+                body.classList.remove('light-theme');
+                themeIcon.textContent = '🌙';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.classList.add('light-theme');
+                themeIcon.textContent = '☀️';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        // Загрузка темы
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const body = document.body;
+            const themeIcon = document.getElementById('theme-icon');
+
+            if (savedTheme === 'light') {
+                body.classList.add('light-theme');
+                themeIcon.textContent = '☀️';
+            } else {
+                body.classList.remove('light-theme');
+                themeIcon.textContent = '🌙';
+            }
+        }
+
+        document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+        window.addEventListener('load', loadTheme);
+    </script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+</body>
+</html>
