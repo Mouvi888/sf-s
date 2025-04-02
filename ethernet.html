@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <link rel="shortcut icon" href="https://mouvi.lol/site.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Тест скорости интернета от Mouvi">
+    <title>Mouvi | Тест скорости интернета</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(-45deg, #1a202c, #2d3748, #4a5568, #1a202c);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #E2E8F0;
+            min-height: 100vh;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .card {
+            background-color: rgba(45, 55, 72, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn {
+            background: linear-gradient(90deg, #4facfe, #00f2fe);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .btn-server {
+            background: transparent;
+            border: 1px solid #4facfe;
+            color: #4facfe;
+            padding: 6px 12px;
+            font-size: 0.8rem;
+        }
+
+        .speed-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(90deg, #4facfe, #00f2fe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        #progressBar {
+            height: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+        }
+
+        #progress {
+            height: 100%;
+            background: linear-gradient(90deg, #4facfe, #00f2fe);
+            border-radius: 5px;
+            transition: width 0.3s;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="bg-gradient-to-r from-blue-500 to-teal-400 py-8 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center px-4">
+            <a href="https://mouvi.lol" class="flex items-center text-white font-bold text-3xl">
+                <img src="https://mouvi.lol/site.png" alt="Mouvi" class="w-10 mr-2"> Mouvi
+            </a>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-4">
+        <section class="text-center mb-12">
+            <h1 class="text-6xl font-bold mb-4">Тест скорости интернета</h1>
+            <p class="text-xl">Точное измерение скорости загрузки, отдачи и пинга</p>
+        </section>
+
+        <section class="max-w-2xl mx-auto card p-8">
+            <!-- Блок информации о сервере -->
+            <div class="flex justify-between items-center mb-6 p-3 bg-gray-700 rounded-lg">
+                <div>
+                    <div class="font-bold" id="serverProvider">Rostelecom</div>
+                    <div class="text-sm" id="serverLocation">Москва, Россия</div>
+                    <div class="text-xs opacity-70" id="serverIP">IP: 217.175.208.142</div>
+                </div>
+                <button class="btn-server" onclick="changeServer()">Сменить сервер</button>
+            </div>
+            
+            <div class="text-center">
+                <button id="startTest" class="btn" onclick="startSpeedTest()">
+                    Начать тест скорости
+                </button>
+                
+                <div id="testStatus" class="mt-6 text-lg"></div>
+                
+                <div id="progressBar" class="mt-6">
+                    <div id="progress" style="width: 0%"></div>
+                </div>
+                
+                <div id="speedResults" class="grid grid-cols-3 gap-4 mt-8" style="display: none;">
+                    <div>
+                        <div class="text-sm text-gray-400">СКОРОСТЬ ЗАГРУЗКИ</div>
+                        <div id="downloadSpeed" class="speed-value">0</div>
+                        <div class="text-sm text-gray-400">Мбит/с</div>
+                    </div>
+                    <div>
+                        <div class="text-sm text-gray-400">СКОРОСТЬ ОТДАЧИ</div>
+                        <div id="uploadSpeed" class="speed-value">0</div>
+                        <div class="text-sm text-gray-400">Мбит/с</div>
+                    </div>
+                    <div>
+                        <div class="text-sm text-gray-400">ПИНГ</div>
+                        <div id="pingValue" class="speed-value">0</div>
+                        <div class="text-sm text-gray-400">мс</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Подключаем библиотеку LibreSpeed -->
+    <script src="https://cdn.jsdelivr.net/gh/librespeed/speedtest@master/dist/speedtest.min.js"></script>
+    
+    <script>
+        // Список доступных серверов
+        const servers = [
+            { provider: "Rostelecom", location: "Москва, Россия", ip: "217.175.208.142" },
+            { provider: "MTS", location: "Санкт-Петербург, Россия", ip: "95.167.93.210" },
+            { provider: "Beeline", location: "Новосибирск, Россия", ip: "188.226.135.101" },
+            { provider: "Megafon", location: "Казань, Россия", ip: "178.248.237.68" }
+        ];
+        
+        let currentServerIndex = 0;
+        
+        // Функция для обновления информации о сервере
+        function updateServerInfo() {
+            const server = servers[currentServerIndex];
+            document.getElementById('serverProvider').textContent = server.provider;
+            document.getElementById('serverLocation').textContent = server.location;
+            document.getElementById('serverIP').textContent = `IP: ${server.ip}`;
+        }
+        
+        // Функция смены сервера
+        function changeServer() {
+            currentServerIndex = (currentServerIndex + 1) % servers.length;
+            updateServerInfo();
+        }
+        
+        // Инициализация информации о сервере
+        updateServerInfo();
+        
+        // Получаем реальный IP пользователя (через API)
+        function getUserIP() {
+            fetch('https://api.ipify.org?format=json')
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Ваш IP: ", data.ip);
+                    // Здесь можно добавить дополнительную информацию о местоположении
+                });
+        }
+        
+        // Вызываем при загрузке страницы
+        getUserIP();
+        
+        function startSpeedTest() {
+            const testStatus = document.getElementById('testStatus');
+            const startTestBtn = document.getElementById('startTest');
+            const progressBar = document.getElementById('progress');
+            const speedResults = document.getElementById('speedResults');
+            
+            // Сброс предыдущих результатов
+            testStatus.textContent = 'Подготовка теста...';
+            progressBar.style.width = '0%';
+            speedResults.style.display = 'none';
+            startTestBtn.disabled = true;
+            
+            // Создаем экземпляр теста
+            const test = new Speedtest();
+            
+            // Обновление прогресса
+            test.onupdate = function(data) {
+                const downloadMbps = (data.download * 8 / 1000000).toFixed(2);
+                const uploadMbps = (data.upload * 8 / 1000000).toFixed(2);
+                
+                document.getElementById('downloadSpeed').textContent = downloadMbps;
+                document.getElementById('uploadSpeed').textContent = uploadMbps;
+                document.getElementById('pingValue').textContent = data.ping.toFixed(0);
+                
+                progressBar.style.width = `${data.progress}%`;
+                
+                if (data.state === 1) {
+                    testStatus.textContent = 'Измерение скорости загрузки...';
+                } else if (data.state === 2) {
+                    testStatus.textContent = 'Измерение скорости отдачи...';
+                } else if (data.state === 3) {
+                    testStatus.textContent = 'Измерение пинга...';
+                }
+            };
+            
+            test.onend = function() {
+                testStatus.textContent = 'Тест завершен!';
+                speedResults.style.display = 'grid';
+                startTestBtn.disabled = false;
+                startTestBtn.textContent = 'Повторить тест';
+            };
+            
+            test.start();
+        }
+    </script>
+</body>
+</html>
