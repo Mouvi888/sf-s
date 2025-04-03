@@ -1,13 +1,9 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
-    <link rel="shortcut icon" href="https://mouvi.lol/site.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Тест скорости интернета от Mouvi">
-    <title>Mouvi | Тест скорости интернета</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>Тест скорости интернета</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -16,207 +12,354 @@
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
             color: #E2E8F0;
+            display: flex;
+            flex-direction: column;
             min-height: 100vh;
+            transition: background-color 0.5s ease, color 0.5s ease;
+            margin: 0;
         }
-
         @keyframes gradientBG {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
-
+        .hidden {
+            display: none;
+        }
         .card {
+            transition: transform 0.3s, box-shadow 0.3s, background-color 0.5s ease, color 0.5s ease;
+            border-radius: 15px;
             background-color: rgba(45, 55, 72, 0.8);
             backdrop-filter: blur(10px);
-            border-radius: 15px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 2.5rem;
+            max-width: 650px;
+            width: 90%;
+            margin: 2rem auto;
         }
-
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3), 0 0 15px rgba(255, 126, 95, 0.5);
+        }
+        header {
+            text-align: center;
+            padding: 3rem 0 1rem;
+            animation: slideDown 1s ease-in-out;
+        }
+        @keyframes slideDown {
+            0% { transform: translateY(-100%); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        h1 {
+            font-size: 2.8rem;
+            margin: 0;
+            animation: fadeIn 2s ease-in-out;
+            background: linear-gradient(90deg, #ff7e5f, #feb47b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .wave {
+            position: relative;
+            overflow: hidden;
+        }
+        .wave::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/wave.png');
+            opacity: 0.1;
+            animation: waveAnimation 10s linear infinite;
+        }
+        @keyframes waveAnimation {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
         .btn {
-            background: linear-gradient(90deg, #4facfe, #00f2fe);
+            background: linear-gradient(90deg, #ff7e5f, #feb47b);
             color: white;
-            padding: 12px 24px;
-            border-radius: 8px;
+            padding: 14px 28px;
+            border-radius: 10px;
+            border: none;
+            font-size: 1.1rem;
             font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s, background 0.5s ease;
+            position: relative;
+            overflow: hidden;
+            margin: 1.5rem 0;
+            display: inline-block;
         }
-
-        .btn-server {
-            background: transparent;
-            border: 1px solid #4facfe;
-            color: #4facfe;
-            padding: 6px 12px;
-            font-size: 0.8rem;
+        .btn::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent);
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.5s ease;
         }
-
+        .btn:hover::before {
+            transform: translate(-50%, -50%) scale(1);
+        }
+        .btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(255, 126, 95, 0.5), 0 0 25px rgba(255, 126, 95, 0.7);
+        }
+        .btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+        #progressBar {
+            width: 100%;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 6px;
+            margin: 2rem 0;
+            overflow: hidden;
+        }
+        #progress {
+            height: 100%;
+            background: linear-gradient(90deg, #4facfe, #00f2fe);
+            border-radius: 6px;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        .results {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+            text-align: center;
+        }
+        .result-box {
+            padding: 1.2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        .result-box:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+        }
         .speed-value {
-            font-size: 1.8rem;
+            font-size: 2.2rem;
             font-weight: bold;
+            margin: 0.5rem 0;
             background: linear-gradient(90deg, #4facfe, #00f2fe);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-
-        #progressBar {
-            height: 10px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 5px;
+        .status {
+            margin: 1.5rem 0;
+            min-height: 27px;
+            font-size: 1.1rem;
+            font-weight: 500;
         }
-
-        #progress {
-            height: 100%;
-            background: linear-gradient(90deg, #4facfe, #00f2fe);
-            border-radius: 5px;
-            transition: width 0.3s;
+        .error {
+            color: #ff6b6b;
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: rgba(255, 107, 107, 0.1);
+            border-radius: 8px;
+            display: none;
+        }
+        footer {
+            text-align: center;
+            padding: 2.5rem 0;
+            margin-top: auto;
+            animation: slideUp 1s ease-in-out;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        @keyframes slideUp {
+            0% { transform: translateY(100%); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        .text-pop {
+            animation: textPop 1s ease-in-out;
+        }
+        @keyframes textPop {
+            0% { transform: scale(0.9); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .server-info {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 1rem;
         }
     </style>
 </head>
-
 <body>
-    <header class="bg-gradient-to-r from-blue-500 to-teal-400 py-8 shadow-lg">
-        <div class="container mx-auto flex justify-between items-center px-4">
-            <a href="https://mouvi.lol" class="flex items-center text-white font-bold text-3xl">
-                <img src="https://mouvi.lol/site.png" alt="Mouvi" class="w-10 mr-2"> Mouvi
-            </a>
-        </div>
+    <header class="wave">
+        <h1 class="text-pop">Тест скорости интернета</h1>
     </header>
 
-    <main class="container mx-auto p-4">
-        <section class="text-center mb-12">
-            <h1 class="text-6xl font-bold mb-4">Тест скорости интернета</h1>
-            <p class="text-xl">Точное измерение скорости загрузки, отдачи и пинга</p>
-        </section>
-
-        <section class="max-w-2xl mx-auto card p-8">
-            <!-- Блок информации о сервере -->
-            <div class="flex justify-between items-center mb-6 p-3 bg-gray-700 rounded-lg">
-                <div>
-                    <div class="font-bold" id="serverProvider">Rostelecom</div>
-                    <div class="text-sm" id="serverLocation">Москва, Россия</div>
-                    <div class="text-xs opacity-70" id="serverIP">IP: 217.175.208.142</div>
-                </div>
-                <button class="btn-server" onclick="changeServer()">Сменить сервер</button>
+    <main class="main-content">
+        <div class="card text-pop">
+            <div class="server-info">
+                Тестирование через сервер LibreSpeed
             </div>
             
-            <div class="text-center">
-                <button id="startTest" class="btn" onclick="startSpeedTest()">
-                    Начать тест скорости
-                </button>
-                
-                <div id="testStatus" class="mt-6 text-lg"></div>
-                
-                <div id="progressBar" class="mt-6">
-                    <div id="progress" style="width: 0%"></div>
+            <button id="startTest" class="btn">Начать тест</button>
+            <div id="status" class="status">Готов к тестированию</div>
+            
+            <div id="progressBar">
+                <div id="progress"></div>
+            </div>
+            
+            <div id="error" class="error hidden"></div>
+            
+            <div id="results" class="results hidden">
+                <div class="result-box">
+                    <div>СКОРОСТЬ ЗАГРУЗКИ</div>
+                    <div id="download" class="speed-value">0</div>
+                    <div>Мбит/с</div>
                 </div>
-                
-                <div id="speedResults" class="grid grid-cols-3 gap-4 mt-8" style="display: none;">
-                    <div>
-                        <div class="text-sm text-gray-400">СКОРОСТЬ ЗАГРУЗКИ</div>
-                        <div id="downloadSpeed" class="speed-value">0</div>
-                        <div class="text-sm text-gray-400">Мбит/с</div>
-                    </div>
-                    <div>
-                        <div class="text-sm text-gray-400">СКОРОСТЬ ОТДАЧИ</div>
-                        <div id="uploadSpeed" class="speed-value">0</div>
-                        <div class="text-sm text-gray-400">Мбит/с</div>
-                    </div>
-                    <div>
-                        <div class="text-sm text-gray-400">ПИНГ</div>
-                        <div id="pingValue" class="speed-value">0</div>
-                        <div class="text-sm text-gray-400">мс</div>
-                    </div>
+                <div class="result-box">
+                    <div>СКОРОСТЬ ОТДАЧИ</div>
+                    <div id="upload" class="speed-value">0</div>
+                    <div>Мбит/с</div>
+                </div>
+                <div class="result-box">
+                    <div>ПИНГ</div>
+                    <div id="ping" class="speed-value">0</div>
+                    <div>мс</div>
                 </div>
             </div>
-        </section>
+        </div>
     </main>
 
-    <!-- Подключаем библиотеку LibreSpeed -->
-    <script src="https://cdn.jsdelivr.net/gh/librespeed/speedtest@master/dist/speedtest.min.js"></script>
-    
+    <footer>
+        <p>© 2023 Тест скорости интернета | Все права защищены</p>
+    </footer>
+
     <script>
-        // Список доступных серверов
+        // Список серверов для тестирования
         const servers = [
-            { provider: "Rostelecom", location: "Москва, Россия", ip: "217.175.208.142" },
-            { provider: "MTS", location: "Санкт-Петербург, Россия", ip: "95.167.93.210" },
-            { provider: "Beeline", location: "Новосибирск, Россия", ip: "188.226.135.101" },
-            { provider: "Megafon", location: "Казань, Россия", ip: "178.248.237.68" }
+            "https://speedtest6.librespeed.org/backend/",
+            "https://speedtest4.librespeed.org/backend/",
+            "https://speedtest.iveloz.net.br/backend/"
         ];
         
-        let currentServerIndex = 0;
-        
-        // Функция для обновления информации о сервере
-        function updateServerInfo() {
-            const server = servers[currentServerIndex];
-            document.getElementById('serverProvider').textContent = server.provider;
-            document.getElementById('serverLocation').textContent = server.location;
-            document.getElementById('serverIP').textContent = `IP: ${server.ip}`;
-        }
-        
-        // Функция смены сервера
-        function changeServer() {
-            currentServerIndex = (currentServerIndex + 1) % servers.length;
-            updateServerInfo();
-        }
-        
-        // Инициализация информации о сервере
-        updateServerInfo();
-        
-        // Получаем реальный IP пользователя (через API)
-        function getUserIP() {
-            fetch('https://api.ipify.org?format=json')
-                .then(response => response.json())
-                .then(data => {
-                    console.log("Ваш IP: ", data.ip);
-                    // Здесь можно добавить дополнительную информацию о местоположении
-                });
-        }
-        
-        // Вызываем при загрузке страницы
-        getUserIP();
-        
-        function startSpeedTest() {
-            const testStatus = document.getElementById('testStatus');
-            const startTestBtn = document.getElementById('startTest');
-            const progressBar = document.getElementById('progress');
-            const speedResults = document.getElementById('speedResults');
+        let currentServer = 0;
+        let test = null;
+        let timeout = null;
+
+        document.getElementById('startTest').addEventListener('click', startTest);
+
+        function startTest() {
+            const btn = document.getElementById('startTest');
+            const status = document.getElementById('status');
+            const progress = document.getElementById('progress');
+            const error = document.getElementById('error');
+            const results = document.getElementById('results');
             
-            // Сброс предыдущих результатов
-            testStatus.textContent = 'Подготовка теста...';
-            progressBar.style.width = '0%';
-            speedResults.style.display = 'none';
-            startTestBtn.disabled = true;
+            // Сброс состояния
+            btn.disabled = true;
+            status.textContent = "Подготовка теста...";
+            progress.style.width = "0%";
+            error.classList.add('hidden');
+            results.classList.add('hidden');
+            btn.textContent = "Тестирование...";
             
-            // Создаем экземпляр теста
-            const test = new Speedtest();
+            // Таймаут для подготовки (8 секунд)
+            timeout = setTimeout(() => {
+                if (test && test._state === 0) { // Если все еще в состоянии подготовки
+                    test.abort();
+                    showError("Не удалось подключиться к серверу");
+                    tryNextServer();
+                }
+            }, 8000);
+
+            // Создаем новый тест
+            test = new Speedtest();
+            test.setParameter("url_multistream", servers[currentServer]);
+            test.setParameter("telemetry_level", "basic");
+            test.setParameter("test_order", "D_U");
+            test.setParameter("time_dl", 5);
+            test.setParameter("time_ul", 3);
             
-            // Обновление прогресса
             test.onupdate = function(data) {
-                const downloadMbps = (data.download * 8 / 1000000).toFixed(2);
-                const uploadMbps = (data.upload * 8 / 1000000).toFixed(2);
+                clearTimeout(timeout);
+                progress.style.width = data.progress + "%";
                 
-                document.getElementById('downloadSpeed').textContent = downloadMbps;
-                document.getElementById('uploadSpeed').textContent = uploadMbps;
-                document.getElementById('pingValue').textContent = data.ping.toFixed(0);
-                
-                progressBar.style.width = `${data.progress}%`;
-                
-                if (data.state === 1) {
-                    testStatus.textContent = 'Измерение скорости загрузки...';
-                } else if (data.state === 2) {
-                    testStatus.textContent = 'Измерение скорости отдачи...';
-                } else if (data.state === 3) {
-                    testStatus.textContent = 'Измерение пинга...';
+                if (data.state === 1) { // Download
+                    const speed = (data.download * 8 / 1000000).toFixed(2);
+                    document.getElementById('download').textContent = speed;
+                    status.textContent = `Измерение скорости загрузки: ${speed} Мбит/с`;
+                } 
+                else if (data.state === 2) { // Upload
+                    const speed = (data.upload * 8 / 1000000).toFixed(2);
+                    document.getElementById('upload').textContent = speed;
+                    status.textContent = `Измерение скорости отдачи: ${speed} Мбит/с`;
+                } 
+                else if (data.state === 3) { // Ping
+                    document.getElementById('ping').textContent = data.ping.toFixed(0);
+                    status.textContent = `Измерение пинга: ${data.ping.toFixed(0)} мс`;
                 }
             };
             
             test.onend = function() {
-                testStatus.textContent = 'Тест завершен!';
-                speedResults.style.display = 'grid';
-                startTestBtn.disabled = false;
-                startTestBtn.textContent = 'Повторить тест';
+                clearTimeout(timeout);
+                results.classList.remove('hidden');
+                status.textContent = "Тест успешно завершен";
+                btn.disabled = false;
+                btn.textContent = "Повторить тест";
+                currentServer = 0; // Сброс на первый сервер
+            };
+            
+            test.onerror = function(err) {
+                clearTimeout(timeout);
+                showError(err);
+                tryNextServer();
             };
             
             test.start();
         }
+
+        function showError(message) {
+            const error = document.getElementById('error');
+            error.textContent = message;
+            error.classList.remove('hidden');
+        }
+
+        function tryNextServer() {
+            const btn = document.getElementById('startTest');
+            const status = document.getElementById('status');
+            
+            // Пробуем следующий сервер
+            currentServer = (currentServer + 1) % servers.length;
+            
+            if (currentServer === 0) {
+                // Все серверы перепробованы
+                status.textContent = "Не удалось подключиться к серверам";
+                btn.disabled = false;
+                btn.textContent = "Попробовать снова";
+            } else {
+                status.textContent = `Попытка подключения к серверу ${currentServer + 1}...`;
+                setTimeout(startTest, 1000);
+            }
+        }
     </script>
+    <script src="https://cdn.jsdelivr.net/gh/librespeed/speedtest@master/dist/speedtest.min.js"></script>
 </body>
 </html>
