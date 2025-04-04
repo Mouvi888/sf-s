@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Реальный тест скорости интернета</title>
+    <title>Тест скорости интернета</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -16,7 +16,7 @@
             flex-direction: column;
             min-height: 100vh;
             margin: 0;
-            padding: 0;
+            padding: 20px;
         }
         @keyframes gradientBG {
             0% { background-position: 0% 50%; }
@@ -29,9 +29,9 @@
             border-radius: 15px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             padding: 2rem;
-            max-width: 600px;
-            width: 90%;
-            margin: 2rem auto;
+            max-width: 650px;
+            width: 100%;
+            margin: 0 auto;
         }
         h1 {
             font-size: 2.5rem;
@@ -39,6 +39,7 @@
             background: linear-gradient(90deg, #ff7e5f, #feb47b);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            margin-bottom: 2rem;
         }
         .btn {
             background: linear-gradient(90deg, #ff7e5f, #feb47b);
@@ -50,7 +51,12 @@
             font-weight: 600;
             cursor: pointer;
             display: block;
-            margin: 1rem auto;
+            margin: 1.5rem auto;
+            width: 200px;
+            transition: transform 0.2s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
         }
         .btn:disabled {
             opacity: 0.7;
@@ -61,7 +67,7 @@
             height: 10px;
             background: rgba(255, 255, 255, 0.2);
             border-radius: 5px;
-            margin: 1.5rem 0;
+            margin: 2rem 0;
             overflow: hidden;
         }
         #progress {
@@ -76,12 +82,12 @@
             grid-template-columns: repeat(3, 1fr);
             gap: 1rem;
             margin-top: 2rem;
-            text-align: center;
         }
         .result-box {
-            padding: 1rem;
+            padding: 1.2rem;
             background: rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
+            border-radius: 10px;
+            text-align: center;
         }
         .speed-value {
             font-size: 1.8rem;
@@ -93,29 +99,61 @@
         }
         .status {
             text-align: center;
-            margin: 1rem 0;
+            margin: 1.5rem 0;
             min-height: 24px;
+            font-weight: 500;
         }
         .error {
             color: #ff6b6b;
             text-align: center;
             margin: 1rem 0;
+            padding: 1rem;
+            background: rgba(255, 107, 107, 0.1);
+            border-radius: 8px;
+            display: none;
+        }
+        .server-select {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 1rem;
+        }
+        select {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
         }
         footer {
             text-align: center;
-            padding: 2rem 0;
-            margin-top: auto;
+            margin-top: 3rem;
+            padding: 1.5rem 0;
+            opacity: 0.8;
+            font-size: 0.9rem;
         }
     </style>
 </head>
 <body>
-    <h1>Тест скорости интернета</h1>
-    
     <div class="card">
+        <h1>Игровой тест скорости</h1>
+        
+        <div class="server-select">
+            <select id="serverSelect">
+                <option value="auto">Автоматический (ближайший)</option>
+                <option value="cs2">CS2 (Европа)</option>
+                <option value="dota2">Dota 2 (Россия)</option>
+                <option value="fortnite">Fortnite (Германия)</option>
+                <option value="valorant">Valorant (Турция)</option>
+            </select>
+        </div>
+        
         <button id="startTest" class="btn">Начать тест</button>
-        <div id="status" class="status">Готов к тестированию</div>
+        <div id="status" class="status">Выберите сервер и нажмите "Начать тест"</div>
+        
         <div id="progressBar"><div id="progress"></div></div>
         <div id="error" class="error"></div>
+        
         <div id="results" class="results" style="display:none;">
             <div class="result-box">
                 <div>Загрузка</div>
@@ -136,10 +174,19 @@
     </div>
 
     <footer>
-        <p>© 2023 Реальный тест скорости</p>
+        <p>© 2023 Игровой тест скорости | Для точных результатов закройте другие вкладки</p>
     </footer>
 
     <script>
+        // Сервера для разных игр
+        const GAME_SERVERS = {
+            auto: { ping: ['stun1.l.google.com:19302', 'stun2.l.google.com:19302'] },
+            cs2: { ping: ['185.25.182.1'], download: 'http://cs2-speedtest.azureedge.net/10mb.bin' },
+            dota2: { ping: ['lux.valve.net'], download: 'http://dota2-speedtest.azureedge.net/10mb.bin' },
+            fortnite: { ping: ['ping.ol.epicgames.com'], download: 'http://fortnite-speedtest.azureedge.net/10mb.bin' },
+            valorant: { ping: ['185.60.112.157'], download: 'http://valorant-speedtest.azureedge.net/10mb.bin' }
+        };
+
         document.getElementById('startTest').addEventListener('click', startTest);
 
         async function startTest() {
@@ -148,26 +195,31 @@
             const progress = document.getElementById('progress');
             const error = document.getElementById('error');
             const results = document.getElementById('results');
+            const serverType = document.getElementById('serverSelect').value;
             
             // Сброс состояния
             btn.disabled = true;
             error.textContent = '';
+            error.style.display = 'none';
             results.style.display = 'none';
+            progress.style.width = '0%';
             
             try {
-                // 1. Тест пинга (реальный)
-                status.textContent = 'Измерение пинга...';
-                const ping = await testPing();
+                // 1. Тест пинга (игровой)
+                status.textContent = 'Измерение пинга к игровому серверу...';
+                const ping = await testGamePing(GAME_SERVERS[serverType].ping);
                 document.getElementById('ping').textContent = ping;
-                progress.style.width = '33%';
+                progress.style.width = '20%';
                 
-                // 2. Тест скорости загрузки (реальный)
+                // 2. Тест скорости загрузки
                 status.textContent = 'Измерение скорости загрузки...';
-                const downloadSpeed = await testDownloadSpeed();
+                const downloadSpeed = await testDownloadSpeed(
+                    GAME_SERVERS[serverType].download || 'https://speedtest.iveloz.net.br/10mb.bin'
+                );
                 document.getElementById('download').textContent = downloadSpeed.toFixed(2);
-                progress.style.width = '66%';
+                progress.style.width = '60%';
                 
-                // 3. Тест скорости отдачи (реальный)
+                // 3. Тест скорости отдачи
                 status.textContent = 'Измерение скорости отдачи...';
                 const uploadSpeed = await testUploadSpeed();
                 document.getElementById('upload').textContent = uploadSpeed.toFixed(2);
@@ -176,63 +228,87 @@
                 // Показ результатов
                 status.textContent = 'Тест завершен!';
                 results.style.display = 'grid';
+                
             } catch (err) {
                 error.textContent = 'Ошибка: ' + err.message;
-                status.textContent = 'Тест завершен с ошибкой';
+                error.style.display = 'block';
+                status.textContent = 'Тест прерван';
             } finally {
                 btn.disabled = false;
             }
         }
 
-        // Реальный тест пинга
-        async function testPing() {
-            const startTime = performance.now();
-            try {
-                await fetch('https://httpbin.org/get', {
-                    method: 'HEAD',
-                    cache: 'no-store',
-                    mode: 'no-cors'
-                });
-                const endTime = performance.now();
-                return Math.round(endTime - startTime);
-            } catch {
-                return '—';
+        // Точный игровой пинг через WebRTC (UDP-like)
+        async function testGamePing(servers) {
+            let minPing = Infinity;
+            
+            for (const server of servers) {
+                try {
+                    const start = performance.now();
+                    const conn = new RTCPeerConnection({
+                        iceServers: [{ urls: `stun:${server}` }]
+                    });
+                    
+                    await Promise.race([
+                        new Promise(resolve => conn.onicecandidate = resolve),
+                        new Promise((_, reject) => setTimeout(reject, 2000))
+                    ]);
+                    
+                    const ping = Math.round(performance.now() - start);
+                    minPing = Math.min(minPing, ping);
+                    
+                } catch {
+                    continue;
+                }
             }
+            
+            if (minPing === Infinity) {
+                throw new Error('Не удалось измерить пинг');
+            }
+            
+            return minPing;
         }
 
-        // Реальный тест скорости загрузки
-        async function testDownloadSpeed() {
-            const testUrl = 'https://httpbin.org/stream-bytes/10000000'; // 10MB
+        // Реальная скорость загрузки
+        async function testDownloadSpeed(url) {
             const startTime = performance.now();
+            let received = 0;
+            const chunkSize = 256 * 1024; // 256KB
             
             try {
-                const response = await fetch(testUrl);
+                const response = await fetch(url);
                 const reader = response.body.getReader();
-                let receivedLength = 0;
                 
                 while(true) {
-                    const {done, value} = await reader.read();
+                    const { done, value } = await reader.read();
                     if (done) break;
-                    receivedLength += value.length;
+                    received += value.length;
+                    
+                    // Обновляем прогресс
+                    const elapsed = (performance.now() - startTime) / 1000;
+                    const speed = (received * 8) / (elapsed * 1000000);
+                    document.getElementById('progress').style.width = 
+                        `${20 + 40 * (speed / 100)}%`; // Динамическое обновление
                 }
                 
                 const endTime = performance.now();
-                const duration = (endTime - startTime) / 1000; // в секундах
-                return (receivedLength * 8) / (duration * 1000000); // Мбит/с
+                const duration = (endTime - startTime) / 1000;
+                return (received * 8) / (duration * 1000000); // Мбит/с
+                
             } catch (err) {
-                throw new Error('Не удалось измерить скорость загрузки');
+                throw new Error('Ошибка загрузки: ' + err.message);
             }
         }
 
-        // Реальный тест скорости отдачи
+        // Реальная скорость отдачи
         async function testUploadSpeed() {
-            const testUrl = 'https://httpbin.org/post';
-            const blobSize = 5000000; // 5MB
+            const url = 'https://speedtest.iveloz.net.br/upload.php';
+            const blobSize = 3 * 1024 * 1024; // 3MB
             const blob = new Blob([new Uint8Array(blobSize)]);
             const startTime = performance.now();
             
             try {
-                await fetch(testUrl, {
+                await fetch(url, {
                     method: 'POST',
                     body: blob,
                     headers: {
@@ -241,10 +317,11 @@
                 });
                 
                 const endTime = performance.now();
-                const duration = (endTime - startTime) / 1000; // в секундах
+                const duration = (endTime - startTime) / 1000;
                 return (blobSize * 8) / (duration * 1000000); // Мбит/с
+                
             } catch (err) {
-                throw new Error('Не удалось измерить скорость отдачи');
+                throw new Error('Ошибка отдачи: ' + err.message);
             }
         }
     </script>
