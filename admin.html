@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<a href="/admin.html" style="display: none;" id="admin-link">Админ-панель</a>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Админ-панель</title>
+    <title>Админ-панель с статистикой</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.css" rel="stylesheet">
     <style>
-        /* Основные стили */
         * {
             margin: 0;
             padding: 0;
@@ -25,7 +22,6 @@
             min-height: 100vh;
         }
 
-        /* Боковое меню */
         .sidebar {
             width: 250px;
             background-color: #2c3e50;
@@ -79,7 +75,6 @@
             font-size: 18px;
         }
 
-        /* Основное содержимое */
         .main-content {
             flex: 1;
             background-color: #f5f5f5;
@@ -155,7 +150,6 @@
             margin-right: 10px;
         }
 
-        /* Контент */
         .content-area {
             padding: 25px;
         }
@@ -222,172 +216,14 @@
             color: #333;
         }
 
-        /* Таблица */
-        .recent-orders, .users-table, .products-table {
-            background-color: #fff;
-            border-radius: 5px;
-            padding: 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-        }
-
-        .recent-orders h2, .users-table h2, .products-table h2 {
-            font-size: 18px;
-            margin-bottom: 15px;
-            color: #333;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        table th, table td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
-        table th {
-            background-color: #f9f9f9;
-            font-weight: 600;
-            color: #555;
-        }
-
-        .status {
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 500;
-        }
-
-        .status.completed {
-            background-color: #d4edda;
-            color: #155724;
-        }
-
-        .status.pending {
-            background-color: #fff3cd;
-            color: #856404;
-        }
-
-        .status.shipped {
-            background-color: #cce5ff;
-            color: #004085;
-        }
-
-        .btn {
-            padding: 5px 10px;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            margin-right: 5px;
-            font-size: 14px;
-        }
-
-        .btn-view {
-            background-color: #17a2b8;
-            color: #fff;
-        }
-
-        .btn-edit {
-            background-color: #ffc107;
-            color: #212529;
-        }
-
-        .btn-delete {
-            background-color: #dc3545;
-            color: #fff;
-        }
-
-        .btn-add {
-            background-color: #28a745;
-            color: #fff;
-            padding: 8px 15px;
-            margin-bottom: 15px;
-        }
-
-        /* Формы */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            width: 100%;
-            max-width: 500px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .modal-header h3 {
-            font-size: 20px;
-            color: #333;
-        }
-
-        .close {
-            font-size: 24px;
-            cursor: pointer;
-            color: #777;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 500;
-            color: #555;
-        }
-
-        .form-group input, .form-group select, .form-group textarea {
-            width: 100%;
-            padding: 8px 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 14px;
-        }
-
-        .form-group textarea {
-            min-height: 100px;
-        }
-
-        .form-actions {
-            display: flex;
-            justify-content: flex-end;
-            margin-top: 20px;
-        }
-
-        .form-actions button {
-            margin-left: 10px;
-        }
-
-        /* Графики */
         .chart-container {
             background-color: #fff;
             border-radius: 5px;
             padding: 20px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
+            position: relative;
+            height: 300px;
         }
 
         .chart-container h2 {
@@ -396,7 +232,32 @@
             color: #333;
         }
 
-        /* Страница входа */
+        .recent-activity {
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .activity-list {
+            margin-top: 15px;
+        }
+
+        .activity-item {
+            display: flex;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .activity-time {
+            color: #777;
+            min-width: 80px;
+        }
+
+        .activity-text {
+            flex-grow: 1;
+        }
+
         .login-container {
             display: flex;
             justify-content: center;
@@ -420,26 +281,41 @@
             color: #333;
         }
 
-        .login-box .form-group {
+        .form-group {
             margin-bottom: 20px;
         }
 
-        .login-box button {
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .form-group input {
             width: 100%;
             padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
             background-color: #3498db;
             color: #fff;
             border: none;
             border-radius: 4px;
             font-size: 16px;
             cursor: pointer;
+            transition: background-color 0.3s;
         }
 
-        .login-box button:hover {
+        .login-btn:hover {
             background-color: #2980b9;
         }
 
-        /* Адаптивность */
         @media (max-width: 768px) {
             .admin-container {
                 flex-direction: column;
@@ -468,10 +344,6 @@
                 width: 100%;
                 margin-bottom: 10px;
             }
-            
-            .search input {
-                width: 80%;
-            }
         }
     </style>
 </head>
@@ -481,18 +353,18 @@
         <div class="login-box">
             <h2>Вход в админ-панель</h2>
             <div class="form-group">
-                <label for="login-email">Email</label>
-                <input type="email" id="login-email" placeholder="Введите ваш email">
+                <label for="login-email">Логин</label>
+                <input type="text" id="login-email" placeholder="Введите логин">
             </div>
             <div class="form-group">
                 <label for="login-password">Пароль</label>
-                <input type="password" id="login-password" placeholder="Введите ваш пароль">
+                <input type="password" id="login-password" placeholder="Введите пароль">
             </div>
-            <button id="login-btn">Войти</button>
+            <button id="login-btn" class="login-btn">Войти</button>
         </div>
     </div>
 
-    <!-- Админ-панель (изначально скрыта) -->
+    <!-- Админ-панель -->
     <div id="admin-panel" class="admin-container" style="display: none;">
         <!-- Боковое меню -->
         <aside class="sidebar">
@@ -501,12 +373,9 @@
             </div>
             <nav class="menu">
                 <ul>
-                    <li class="active" data-section="dashboard"><a href="#dashboard"><i class="fas fa-tachometer-alt"></i> Дашборд</a></li>
-                    <li data-section="users"><a href="#users"><i class="fas fa-users"></i> Пользователи</a></li>
-                    <li data-section="products"><a href="#products"><i class="fas fa-shopping-bag"></i> Товары</a></li>
-                    <li data-section="orders"><a href="#orders"><i class="fas fa-shopping-cart"></i> Заказы</a></li>
-                    <li data-section="analytics"><a href="#analytics"><i class="fas fa-chart-line"></i> Аналитика</a></li>
-                    <li data-section="settings"><a href="#settings"><i class="fas fa-cog"></i> Настройки</a></li>
+                    <li class="active" data-section="dashboard"><a href="#"><i class="fas fa-tachometer-alt"></i> Дашборд</a></li>
+                    <li data-section="visitors"><a href="#"><i class="fas fa-users"></i> Посетители</a></li>
+                    <li data-section="settings"><a href="#"><i class="fas fa-cog"></i> Настройки</a></li>
                     <li><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Выйти</a></li>
                 </ul>
             </nav>
@@ -538,156 +407,66 @@
                             <i class="fas fa-users"></i>
                         </div>
                         <div class="card-info">
-                            <h3>Пользователи</h3>
-                            <p id="users-count">0</p>
+                            <h3>Посетители сегодня</h3>
+                            <p id="today-visitors">0</p>
                         </div>
                     </div>
                     <div class="card">
                         <div class="card-icon bg-green">
-                            <i class="fas fa-shopping-cart"></i>
+                            <i class="fas fa-user-plus"></i>
                         </div>
                         <div class="card-info">
-                            <h3>Заказы</h3>
-                            <p id="orders-count">0</p>
+                            <h3>Новые посетители</h3>
+                            <p id="new-visitors">0</p>
                         </div>
                     </div>
                     <div class="card">
                         <div class="card-icon bg-orange">
-                            <i class="fas fa-shopping-bag"></i>
+                            <i class="fas fa-undo"></i>
                         </div>
                         <div class="card-info">
-                            <h3>Товары</h3>
-                            <p id="products-count">0</p>
+                            <h3>Возвраты</h3>
+                            <p id="returning-visitors">0</p>
                         </div>
                     </div>
                     <div class="card">
                         <div class="card-icon bg-red">
-                            <i class="fas fa-dollar-sign"></i>
+                            <i class="fas fa-chart-line"></i>
                         </div>
                         <div class="card-info">
-                            <h3>Доход</h3>
-                            <p id="revenue-count">$0</p>
+                            <h3>Всего посещений</h3>
+                            <p id="total-visitors">0</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="chart-container">
-                    <h2>Продажи за последние 7 дней</h2>
-                    <canvas id="sales-chart"></canvas>
-                </div>
-
-                <div class="recent-orders">
-                    <h2>Последние заказы</h2>
-                    <table id="orders-table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Клиент</th>
-                                <th>Дата</th>
-                                <th>Сумма</th>
-                                <th>Статус</th>
-                                <th>Действия</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Заполняется через JS -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Пользователи -->
-            <div class="content-area" id="users-section" style="display: none;">
-                <h1>Управление пользователями</h1>
-                
-                <button class="btn btn-add" id="add-user-btn"><i class="fas fa-plus"></i> Добавить пользователя</button>
-                
-                <div class="users-table">
-                    <table id="users-list">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Имя</th>
-                                <th>Email</th>
-                                <th>Роль</th>
-                                <th>Дата регистрации</th>
-                                <th>Действия</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Заполняется через JS -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Товары -->
-            <div class="content-area" id="products-section" style="display: none;">
-                <h1>Управление товарами</h1>
-                
-                <button class="btn btn-add" id="add-product-btn"><i class="fas fa-plus"></i> Добавить товар</button>
-                
-                <div class="products-table">
-                    <table id="products-list">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Название</th>
-                                <th>Категория</th>
-                                <th>Цена</th>
-                                <th>Количество</th>
-                                <th>Статус</th>
-                                <th>Действия</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Заполняется через JS -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Заказы -->
-            <div class="content-area" id="orders-section" style="display: none;">
-                <h1>Управление заказами</h1>
-                
-                <div class="orders-table">
-                    <table id="full-orders-list">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Клиент</th>
-                                <th>Дата</th>
-                                <th>Товары</th>
-                                <th>Сумма</th>
-                                <th>Статус</th>
-                                <th>Действия</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Заполняется через JS -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Аналитика -->
-            <div class="content-area" id="analytics-section" style="display: none;">
-                <h1>Аналитика</h1>
-                
-                <div class="chart-container">
-                    <h2>Посещаемость за последний месяц</h2>
+                    <h2>Посещаемость за последние 7 дней</h2>
                     <canvas id="visitors-chart"></canvas>
                 </div>
+
+                <div class="recent-activity">
+                    <h2>Последние посещения</h2>
+                    <div class="activity-list" id="recent-visits">
+                        <!-- Список будет заполнен через JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Подробная статистика посетителей -->
+            <div class="content-area" id="visitors-section" style="display: none;">
+                <h1>Подробная статистика посетителей</h1>
                 
-                <div class="chart-container">
-                    <h2>Топ товаров</h2>
-                    <canvas id="top-products-chart"></canvas>
+                <div class="chart-container" style="height: 400px;">
+                    <h2>Посещаемость за последние 30 дней</h2>
+                    <canvas id="monthly-chart"></canvas>
                 </div>
                 
-                <div class="chart-container">
-                    <h2>Доход по месяцам</h2>
-                    <canvas id="revenue-chart"></canvas>
+                <div class="recent-activity">
+                    <h2>Детальная информация о посетителях</h2>
+                    <div class="activity-list" id="detailed-visits">
+                        <!-- Список будет заполнен через JavaScript -->
+                    </div>
                 </div>
             </div>
 
@@ -696,477 +475,180 @@
                 <h1>Настройки системы</h1>
                 
                 <div class="card">
-                    <h2>Основные настройки</h2>
-                    <form id="general-settings">
-                        <div class="form-group">
-                            <label for="site-name">Название сайта</label>
-                            <input type="text" id="site-name" placeholder="Введите название сайта">
-                        </div>
-                        <div class="form-group">
-                            <label for="site-description">Описание сайта</label>
-                            <textarea id="site-description" placeholder="Введите описание сайта"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="maintenance-mode">Режим обслуживания</label>
-                            <select id="maintenance-mode">
-                                <option value="0">Выключен</option>
-                                <option value="1">Включен</option>
-                            </select>
-                        </div>
-                        <div class="form-actions">
-                            <button type="button" class="btn btn-edit" id="save-settings-btn">Сохранить</button>
-                        </div>
-                    </form>
+                    <h2>Настройки статистики</h2>
+                    <div class="form-group">
+                        <label for="counter-reset">Сбросить статистику:</label>
+                        <button id="counter-reset" class="login-btn" style="background-color: #e74c3c;">Сбросить все данные</button>
+                    </div>
                 </div>
                 
                 <div class="card" style="margin-top: 20px;">
                     <h2>Смена пароля</h2>
-                    <form id="change-password-form">
-                        <div class="form-group">
-                            <label for="current-password">Текущий пароль</label>
-                            <input type="password" id="current-password" placeholder="Введите текущий пароль">
-                        </div>
-                        <div class="form-group">
-                            <label for="new-password">Новый пароль</label>
-                            <input type="password" id="new-password" placeholder="Введите новый пароль">
-                        </div>
-                        <div class="form-group">
-                            <label for="confirm-password">Подтвердите пароль</label>
-                            <input type="password" id="confirm-password" placeholder="Подтвердите новый пароль">
-                        </div>
-                        <div class="form-actions">
-                            <button type="button" class="btn btn-edit" id="change-password-btn">Изменить пароль</button>
-                        </div>
-                    </form>
+                    <div class="form-group">
+                        <label for="current-password">Текущий пароль</label>
+                        <input type="password" id="current-password" placeholder="Введите текущий пароль">
+                    </div>
+                    <div class="form-group">
+                        <label for="new-password">Новый пароль</label>
+                        <input type="password" id="new-password" placeholder="Введите новый пароль">
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm-password">Подтвердите пароль</label>
+                        <input type="password" id="confirm-password" placeholder="Подтвердите новый пароль">
+                    </div>
+                    <button id="change-password-btn" class="login-btn">Изменить пароль</button>
                 </div>
             </div>
         </main>
     </div>
 
-    <!-- Модальное окно для пользователей -->
-    <div id="user-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 id="user-modal-title">Добавить пользователя</h3>
-                <span class="close">&times;</span>
-            </div>
-            <form id="user-form">
-                <input type="hidden" id="user-id">
-                <div class="form-group">
-                    <label for="user-name">Имя</label>
-                    <input type="text" id="user-name" placeholder="Введите имя" required>
-                </div>
-                <div class="form-group">
-                    <label for="user-email">Email</label>
-                    <input type="email" id="user-email" placeholder="Введите email" required>
-                </div>
-                <div class="form-group">
-                    <label for="user-role">Роль</label>
-                    <select id="user-role" required>
-                        <option value="user">Пользователь</option>
-                        <option value="editor">Редактор</option>
-                        <option value="admin">Администратор</option>
-                    </select>
-                </div>
-                <div class="form-group" id="password-field">
-                    <label for="user-password">Пароль</label>
-                    <input type="password" id="user-password" placeholder="Введите пароль">
-                </div>
-                <div class="form-actions">
-                    <button type="button" class="btn btn-edit" id="save-user-btn">Сохранить</button>
-                    <button type="button" class="btn btn-delete" id="cancel-user-btn">Отмена</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Модальное окно для товаров -->
-    <div id="product-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 id="product-modal-title">Добавить товар</h3>
-                <span class="close">&times;</span>
-            </div>
-            <form id="product-form">
-                <input type="hidden" id="product-id">
-                <div class="form-group">
-                    <label for="product-name">Название</label>
-                    <input type="text" id="product-name" placeholder="Введите название товара" required>
-                </div>
-                <div class="form-group">
-                    <label for="product-category">Категория</label>
-                    <select id="product-category" required>
-                        <option value="electronics">Электроника</option>
-                        <option value="clothing">Одежда</option>
-                        <option value="books">Книги</option>
-                        <option value="home">Для дома</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="product-price">Цена</label>
-                    <input type="number" id="product-price" placeholder="Введите цену" step="0.01" required>
-                </div>
-                <div class="form-group">
-                    <label for="product-quantity">Количество</label>
-                    <input type="number" id="product-quantity" placeholder="Введите количество" required>
-                </div>
-                <div class="form-group">
-                    <label for="product-status">Статус</label>
-                    <select id="product-status" required>
-                        <option value="in_stock">В наличии</option>
-                        <option value="out_of_stock">Нет в наличии</option>
-                        <option value="discontinued">Снят с производства</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="product-description">Описание</label>
-                    <textarea id="product-description" placeholder="Введите описание товара"></textarea>
-                </div>
-                <div class="form-actions">
-                    <button type="button" class="btn btn-edit" id="save-product-btn">Сохранить</button>
-                    <button type="button" class="btn btn-delete" id="cancel-product-btn">Отмена</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Модальное окно для заказов -->
-    <div id="order-modal" class="modal">
-        <div class="modal-content" style="max-width: 800px;">
-            <div class="modal-header">
-                <h3 id="order-modal-title">Детали заказа</h3>
-                <span class="close">&times;</span>
-            </div>
-            <div id="order-details">
-                <!-- Заполняется через JS -->
-            </div>
-            <div class="form-group">
-                <label for="order-status">Статус заказа</label>
-                <select id="order-status">
-                    <option value="pending">В обработке</option>
-                    <option value="processing">В процессе</option>
-                    <option value="shipped">Отправлен</option>
-                    <option value="delivered">Доставлен</option>
-                    <option value="cancelled">Отменен</option>
-                </select>
-            </div>
-            <div class="form-actions">
-                <button type="button" class="btn btn-edit" id="save-order-btn">Сохранить изменения</button>
-                <button type="button" class="btn btn-delete" id="cancel-order-btn">Закрыть</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Скрипты -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // Инициализация данных в LocalStorage (имитация базы данных)
-        function initializeData() {
-            if (!localStorage.getItem('admin_users')) {
-                const adminUsers = [
-                    { id: 1, name: 'Администратор', email: 'admin@example.com', role: 'admin', password: 'admin123', createdAt: '2023-01-01' },
-                    { id: 2, name: 'Редактор', email: 'editor@example.com', role: 'editor', password: 'editor123', createdAt: '2023-01-02' },
-                    { id: 3, name: 'Пользователь', email: 'user@example.com', role: 'user', password: 'user123', createdAt: '2023-01-03' }
-                ];
-                localStorage.setItem('admin_users', JSON.stringify(adminUsers));
+        // Имитация базы данных в localStorage
+        if (!localStorage.getItem('visitorsData')) {
+            const defaultData = {
+                totalVisits: 0,
+                todayVisits: 0,
+                newVisitors: 0,
+                returningVisitors: 0,
+                dailyStats: {},
+                visits: []
+            };
+            localStorage.setItem('visitorsData', JSON.stringify(defaultData));
+        }
+
+        // Функция для обновления статистики посещений
+        function updateVisitorStats() {
+            const today = new Date().toISOString().split('T')[0];
+            const now = new Date();
+            const currentHour = now.getHours();
+            const visitorId = localStorage.getItem('visitorId') || `visitor_${Math.random().toString(36).substr(2, 9)}`;
+            
+            if (!localStorage.getItem('visitorId')) {
+                localStorage.setItem('visitorId', visitorId);
             }
 
-            if (!localStorage.getItem('products')) {
-                const products = [
-                    { id: 1, name: 'Смартфон', category: 'electronics', price: 499.99, quantity: 50, status: 'in_stock', description: 'Новый смартфон с отличной камерой' },
-                    { id: 2, name: 'Ноутбук', category: 'electronics', price: 999.99, quantity: 20, status: 'in_stock', description: 'Мощный ноутбук для работы и игр' },
-                    { id: 3, name: 'Футболка', category: 'clothing', price: 19.99, quantity: 100, status: 'in_stock', description: 'Хлопковая футболка' },
-                    { id: 4, name: 'Книга', category: 'books', price: 14.99, quantity: 30, status: 'in_stock', description: 'Интересная книга' },
-                    { id: 5, name: 'Наушники', category: 'electronics', price: 79.99, quantity: 0, status: 'out_of_stock', description: 'Беспроводные наушники' }
-                ];
-                localStorage.setItem('products', JSON.stringify(products));
+            let data = JSON.parse(localStorage.getItem('visitorsData'));
+            
+            // Проверяем, был ли сегодня этот посетитель
+            const todayVisit = data.visits.some(v => v.date === today && v.visitorId === visitorId);
+            
+            // Увеличиваем счетчики
+            data.totalVisits++;
+            data.todayVisits++;
+            
+            if (!todayVisit) {
+                data.newVisitors++;
+            } else {
+                data.returningVisitors++;
             }
-
-            if (!localStorage.getItem('orders')) {
-                const orders = [
-                    { 
-                        id: 1, 
-                        customer: { id: 3, name: 'Пользователь', email: 'user@example.com' }, 
-                        date: '2023-04-10', 
-                        items: [
-                            { productId: 1, name: 'Смартфон', price: 499.99, quantity: 1 },
-                            { productId: 3, name: 'Футболка', price: 19.99, quantity: 2 }
-                        ], 
-                        total: 539.97, 
-                        status: 'completed' 
-                    },
-                    { 
-                        id: 2, 
-                        customer: { id: 2, name: 'Редактор', email: 'editor@example.com' }, 
-                        date: '2023-04-11', 
-                        items: [
-                            { productId: 2, name: 'Ноутбук', price: 999.99, quantity: 1 }
-                        ], 
-                        total: 999.99, 
-                        status: 'shipped' 
-                    },
-                    { 
-                        id: 3, 
-                        customer: { id: 3, name: 'Пользователь', email: 'user@example.com' }, 
-                        date: '2023-04-12', 
-                        items: [
-                            { productId: 4, name: 'Книга', price: 14.99, quantity: 3 },
-                            { productId: 3, name: 'Футболка', price: 19.99, quantity: 1 }
-                        ], 
-                        total: 64.96, 
-                        status: 'pending' 
-                    }
-                ];
-                localStorage.setItem('orders', JSON.stringify(orders));
-            }
-
-            if (!localStorage.getItem('settings')) {
-                const settings = {
-                    siteName: 'Мой магазин',
-                    siteDescription: 'Лучший магазин в интернете',
-                    maintenanceMode: false
+            
+            // Обновляем ежедневную статистику
+            if (!data.dailyStats[today]) {
+                data.dailyStats[today] = {
+                    total: 0,
+                    hours: Array(24).fill(0)
                 };
-                localStorage.setItem('settings', JSON.stringify(settings));
             }
-        }
-
-        // Проверка аутентификации
-        function checkAuth() {
-            return localStorage.getItem('admin_authenticated') === 'true';
-        }
-
-        // Аутентификация
-        function login(email, password) {
-            const users = JSON.parse(localStorage.getItem('admin_users'));
-            const user = users.find(u => u.email === email && u.password === password);
             
-            if (user) {
-                localStorage.setItem('admin_authenticated', 'true');
-                localStorage.setItem('current_user', JSON.stringify(user));
-                return true;
+            data.dailyStats[today].total++;
+            data.dailyStats[today].hours[currentHour]++;
+            
+            // Добавляем запись о посещении
+            data.visits.push({
+                date: today,
+                time: now.toLocaleTimeString(),
+                visitorId: visitorId,
+                isNew: !todayVisit,
+                ip: '127.0.0.1', // В реальном приложении нужно получать реальный IP
+                page: window.location.pathname
+            });
+            
+            // Сохраняем обновленные данные
+            localStorage.setItem('visitorsData', JSON.stringify(data));
+            
+            return data;
+        }
+
+        // Функция для получения статистики
+        function getVisitorStats() {
+            const data = JSON.parse(localStorage.getItem('visitorsData'));
+            return data;
+        }
+
+        // Функция для отображения статистики
+        function displayStats() {
+            const stats = getVisitorStats();
+            
+            document.getElementById('total-visitors').textContent = stats.totalVisits;
+            document.getElementById('today-visitors').textContent = stats.todayVisits;
+            document.getElementById('new-visitors').textContent = stats.newVisitors;
+            document.getElementById('returning-visitors').textContent = stats.returningVisitors;
+            
+            // Отображаем последние посещения
+            const recentVisitsList = document.getElementById('recent-visits');
+            recentVisitsList.innerHTML = '';
+            
+            const lastVisits = stats.visits.slice(-5).reverse();
+            lastVisits.forEach(visit => {
+                const visitItem = document.createElement('div');
+                visitItem.className = 'activity-item';
+                visitItem.innerHTML = `
+                    <div class="activity-time">${visit.time}</div>
+                    <div class="activity-text">
+                        ${visit.isNew ? 'Новый' : 'Возврат'} посетитель (${visit.visitorId.substr(0, 6)}...)
+                    </div>
+                `;
+                recentVisitsList.appendChild(visitItem);
+            });
+            
+            // Отображаем детальную статистику
+            const detailedVisitsList = document.getElementById('detailed-visits');
+            detailedVisitsList.innerHTML = '';
+            
+            const allVisits = [...stats.visits].reverse();
+            allVisits.forEach(visit => {
+                const visitItem = document.createElement('div');
+                visitItem.className = 'activity-item';
+                visitItem.innerHTML = `
+                    <div class="activity-time">${visit.date} ${visit.time}</div>
+                    <div class="activity-text">
+                        ${visit.isNew ? 'Новый' : 'Возврат'} посетитель (${visit.visitorId.substr(0, 6)}...)
+                        <div style="font-size: 12px; color: #777;">IP: ${visit.ip}, Страница: ${visit.page}</div>
+                    </div>
+                `;
+                detailedVisitsList.appendChild(visitItem);
+            });
+            
+            // Рендерим графики
+            renderCharts(stats);
+        }
+
+        // Функция для рендеринга графиков
+        function renderCharts(stats) {
+            // Подготовка данных для графика за 7 дней
+            const dates = [];
+            const counts = [];
+            
+            const today = new Date();
+            for (let i = 6; i >= 0; i--) {
+                const date = new Date(today);
+                date.setDate(date.getDate() - i);
+                const dateStr = date.toISOString().split('T')[0];
+                
+                dates.push(date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'short' }));
+                counts.push(stats.dailyStats[dateStr] ? stats.dailyStats[dateStr].total : 0);
             }
-            return false;
-        }
-
-        // Выход из системы
-        function logout() {
-            localStorage.removeItem('admin_authenticated');
-            localStorage.removeItem('current_user');
-        }
-
-        // Получение текущего пользователя
-        function getCurrentUser() {
-            return JSON.parse(localStorage.getItem('current_user'));
-        }
-
-        // Загрузка данных
-        function loadData() {
-            // Статистика
-            const users = JSON.parse(localStorage.getItem('admin_users'));
-            const products = JSON.parse(localStorage.getItem('products'));
-            const orders = JSON.parse(localStorage.getItem('orders'));
             
-            document.getElementById('users-count').textContent = users.length;
-            document.getElementById('products-count').textContent = products.length;
-            document.getElementById('orders-count').textContent = orders.length;
-            
-            const totalRevenue = orders.reduce((sum, order) => sum + order.total, 0);
-            document.getElementById('revenue-count').textContent = `$${totalRevenue.toFixed(2)}`;
-            
-            // Последние заказы
-            const ordersTable = document.querySelector('#orders-table tbody');
-            ordersTable.innerHTML = '';
-            
-            const recentOrders = orders.slice(0, 5).sort((a, b) => new Date(b.date) - new Date(a.date));
-            recentOrders.forEach(order => {
-                const row = document.createElement('tr');
-                
-                let statusClass = '';
-                let statusText = '';
-                
-                switch(order.status) {
-                    case 'completed':
-                        statusClass = 'completed';
-                        statusText = 'Завершен';
-                        break;
-                    case 'pending':
-                        statusClass = 'pending';
-                        statusText = 'В обработке';
-                        break;
-                    case 'shipped':
-                        statusClass = 'shipped';
-                        statusText = 'Отправлен';
-                        break;
-                }
-                
-                row.innerHTML = `
-                    <td>#${order.id}</td>
-                    <td>${order.customer.name}</td>
-                    <td>${order.date}</td>
-                    <td>$${order.total.toFixed(2)}</td>
-                    <td><span class="status ${statusClass}">${statusText}</span></td>
-                    <td>
-                        <button class="btn btn-view" data-order-id="${order.id}"><i class="fas fa-eye"></i></button>
-                        <button class="btn btn-edit" data-order-id="${order.id}"><i class="fas fa-edit"></i></button>
-                    </td>
-                `;
-                
-                ordersTable.appendChild(row);
-            });
-            
-            // Пользователи
-            const usersTable = document.querySelector('#users-list tbody');
-            usersTable.innerHTML = '';
-            
-            users.forEach(user => {
-                const row = document.createElement('tr');
-                
-                let roleText = '';
-                switch(user.role) {
-                    case 'admin':
-                        roleText = 'Администратор';
-                        break;
-                    case 'editor':
-                        roleText = 'Редактор';
-                        break;
-                    case 'user':
-                        roleText = 'Пользователь';
-                        break;
-                }
-                
-                row.innerHTML = `
-                    <td>${user.id}</td>
-                    <td>${user.name}</td>
-                    <td>${user.email}</td>
-                    <td>${roleText}</td>
-                    <td>${user.createdAt}</td>
-                    <td>
-                        <button class="btn btn-view" data-user-id="${user.id}"><i class="fas fa-eye"></i></button>
-                        <button class="btn btn-edit" data-user-id="${user.id}"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-delete" data-user-id="${user.id}"><i class="fas fa-trash"></i></button>
-                    </td>
-                `;
-                
-                usersTable.appendChild(row);
-            });
-            
-            // Товары
-            const productsTable = document.querySelector('#products-list tbody');
-            productsTable.innerHTML = '';
-            
-            products.forEach(product => {
-                const row = document.createElement('tr');
-                
-                let statusText = '';
-                switch(product.status) {
-                    case 'in_stock':
-                        statusText = 'В наличии';
-                        break;
-                    case 'out_of_stock':
-                        statusText = 'Нет в наличии';
-                        break;
-                    case 'discontinued':
-                        statusText = 'Снят с производства';
-                        break;
-                }
-                
-                let categoryText = '';
-                switch(product.category) {
-                    case 'electronics':
-                        categoryText = 'Электроника';
-                        break;
-                    case 'clothing':
-                        categoryText = 'Одежда';
-                        break;
-                    case 'books':
-                        categoryText = 'Книги';
-                        break;
-                    case 'home':
-                        categoryText = 'Для дома';
-                        break;
-                }
-                
-                row.innerHTML = `
-                    <td>${product.id}</td>
-                    <td>${product.name}</td>
-                    <td>${categoryText}</td>
-                    <td>$${product.price.toFixed(2)}</td>
-                    <td>${product.quantity}</td>
-                    <td>${statusText}</td>
-                    <td>
-                        <button class="btn btn-view" data-product-id="${product.id}"><i class="fas fa-eye"></i></button>
-                        <button class="btn btn-edit" data-product-id="${product.id}"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-delete" data-product-id="${product.id}"><i class="fas fa-trash"></i></button>
-                    </td>
-                `;
-                
-                productsTable.appendChild(row);
-            });
-            
-            // Все заказы
-            const fullOrdersTable = document.querySelector('#full-orders-list tbody');
-            fullOrdersTable.innerHTML = '';
-            
-            orders.forEach(order => {
-                const row = document.createElement('tr');
-                
-                let statusClass = '';
-                let statusText = '';
-                
-                switch(order.status) {
-                    case 'completed':
-                        statusClass = 'completed';
-                        statusText = 'Завершен';
-                        break;
-                    case 'pending':
-                        statusClass = 'pending';
-                        statusText = 'В обработке';
-                        break;
-                    case 'shipped':
-                        statusClass = 'shipped';
-                        statusText = 'Отправлен';
-                        break;
-                }
-                
-                const productsList = order.items.map(item => `${item.name} (x${item.quantity})`).join(', ');
-                
-                row.innerHTML = `
-                    <td>#${order.id}</td>
-                    <td>${order.customer.name}</td>
-                    <td>${order.date}</td>
-                    <td>${productsList}</td>
-                    <td>$${order.total.toFixed(2)}</td>
-                    <td><span class="status ${statusClass}">${statusText}</span></td>
-                    <td>
-                        <button class="btn btn-view" data-order-id="${order.id}"><i class="fas fa-eye"></i></button>
-                        <button class="btn btn-edit" data-order-id="${order.id}"><i class="fas fa-edit"></i></button>
-                    </td>
-                `;
-                
-                fullOrdersTable.appendChild(row);
-            });
-            
-            // Настройки
-            const settings = JSON.parse(localStorage.getItem('settings'));
-            document.getElementById('site-name').value = settings.siteName;
-            document.getElementById('site-description').value = settings.siteDescription;
-            document.getElementById('maintenance-mode').value = settings.maintenanceMode ? '1' : '0';
-            
-            // Графики
-            renderCharts();
-        }
-
-        // Рендер графиков
-        function renderCharts() {
-            // График продаж за 7 дней
-            const salesCtx = document.getElementById('sales-chart').getContext('2d');
-            const salesChart = new Chart(salesCtx, {
+            // График за 7 дней
+            const visitorsCtx = document.getElementById('visitors-chart').getContext('2d');
+            new Chart(visitorsCtx, {
                 type: 'line',
                 data: {
-                    labels: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'],
+                    labels: dates,
                     datasets: [{
-                        label: 'Продажи',
-                        data: [12, 19, 8, 15, 22, 18, 25],
+                        label: 'Посетители',
+                        data: counts,
                         backgroundColor: 'rgba(52, 152, 219, 0.2)',
                         borderColor: 'rgba(52, 152, 219, 1)',
                         borderWidth: 2,
@@ -1176,9 +658,10 @@
                 },
                 options: {
                     responsive: true,
+                    maintainAspectRatio: false,
                     plugins: {
                         legend: {
-                            position: 'top',
+                            display: false
                         }
                     },
                     scales: {
@@ -1189,15 +672,28 @@
                 }
             });
             
-            // График посещаемости
-            const visitorsCtx = document.getElementById('visitors-chart').getContext('2d');
-            const visitorsChart = new Chart(visitorsCtx, {
+            // Подготовка данных за 30 дней
+            const monthlyDates = [];
+            const monthlyCounts = [];
+            
+            for (let i = 29; i >= 0; i--) {
+                const date = new Date(today);
+                date.setDate(date.getDate() - i);
+                const dateStr = date.toISOString().split('T')[0];
+                
+                monthlyDates.push(date.getDate() + ' ' + date.toLocaleDateString('ru-RU', { month: 'short' }));
+                monthlyCounts.push(stats.dailyStats[dateStr] ? stats.dailyStats[dateStr].total : 0);
+            }
+            
+            // График за 30 дней
+            const monthlyCtx = document.getElementById('monthly-chart').getContext('2d');
+            new Chart(monthlyCtx, {
                 type: 'bar',
                 data: {
-                    labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30'],
+                    labels: monthlyDates,
                     datasets: [{
                         label: 'Посетители',
-                        data: [120, 135, 110, 145, 160, 155, 180, 175, 190, 210, 205, 220, 230, 225, 240, 235, 250, 245, 260, 255, 270, 265, 280, 275, 290, 285, 300, 295, 310, 305],
+                        data: monthlyCounts,
                         backgroundColor: 'rgba(46, 204, 113, 0.2)',
                         borderColor: 'rgba(46, 204, 113, 1)',
                         borderWidth: 1
@@ -1205,66 +701,10 @@
                 },
                 options: {
                     responsive: true,
+                    maintainAspectRatio: false,
                     plugins: {
                         legend: {
-                            position: 'top',
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-            
-            // Топ товаров
-            const topProductsCtx = document.getElementById('top-products-chart').getContext('2d');
-            const topProductsChart = new Chart(topProductsCtx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Смартфоны', 'Ноутбуки', 'Футболки', 'Книги', 'Наушники'],
-                    datasets: [{
-                        data: [35, 25, 20, 15, 5],
-                        backgroundColor: [
-                            'rgba(52, 152, 219, 0.7)',
-                            'rgba(46, 204, 113, 0.7)',
-                            'rgba(155, 89, 182, 0.7)',
-                            'rgba(241, 196, 15, 0.7)',
-                            'rgba(231, 76, 60, 0.7)'
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            position: 'right',
-                        }
-                    }
-                }
-            });
-            
-            // Доход по месяцам
-            const revenueCtx = document.getElementById('revenue-chart').getContext('2d');
-            const revenueChart = new Chart(revenueCtx, {
-                type: 'bar',
-                data: {
-                    labels: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
-                    datasets: [{
-                        label: 'Доход',
-                        data: [12500, 14500, 13200, 15800, 17200, 18500, 21000, 19500, 22000, 23500, 25000, 28000],
-                        backgroundColor: 'rgba(230, 126, 34, 0.2)',
-                        borderColor: 'rgba(230, 126, 34, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            position: 'top',
+                            display: false
                         }
                     },
                     scales: {
@@ -1276,342 +716,78 @@
             });
         }
 
-        // Показать модальное окно пользователя
-        function showUserModal(userId = null) {
-            const modal = document.getElementById('user-modal');
-            const form = document.getElementById('user-form');
-            const title = document.getElementById('user-modal-title');
-            const passwordField = document.getElementById('password-field');
-            
-            if (userId) {
-                // Редактирование пользователя
-                title.textContent = 'Редактировать пользователя';
-                const users = JSON.parse(localStorage.getItem('admin_users'));
-                const user = users.find(u => u.id === userId);
-                
-                document.getElementById('user-id').value = user.id;
-                document.getElementById('user-name').value = user.name;
-                document.getElementById('user-email').value = user.email;
-                document.getElementById('user-role').value = user.role;
-                
-                passwordField.style.display = 'none';
-            } else {
-                // Добавление пользователя
-                title.textContent = 'Добавить пользователя';
-                form.reset();
-                passwordField.style.display = 'block';
-            }
-            
-            modal.style.display = 'flex';
-        }
-
-        // Сохранить пользователя
-        function saveUser() {
-            const id = document.getElementById('user-id').value;
-            const name = document.getElementById('user-name').value;
-            const email = document.getElementById('user-email').value;
-            const role = document.getElementById('user-role').value;
-            const password = document.getElementById('user-password').value;
-            
-            let users = JSON.parse(localStorage.getItem('admin_users'));
-            
-            if (id) {
-                // Обновление пользователя
-                const index = users.findIndex(u => u.id === parseInt(id));
-                if (index !== -1) {
-                    users[index] = {
-                        ...users[index],
-                        name,
-                        email,
-                        role
-                    };
-                }
-            } else {
-                // Добавление нового пользователя
-                const newId = Math.max(...users.map(u => u.id)) + 1;
-                users.push({
-                    id: newId,
-                    name,
-                    email,
-                    role,
-                    password: password || 'default123',
-                    createdAt: new Date().toISOString().split('T')[0]
-                });
-            }
-            
-            localStorage.setItem('admin_users', JSON.stringify(users));
-            closeModal('user-modal');
-            loadData();
-        }
-
-        // Удалить пользователя
-        function deleteUser(userId) {
-            if (confirm('Вы уверены, что хотите удалить этого пользователя?')) {
-                let users = JSON.parse(localStorage.getItem('admin_users'));
-                users = users.filter(u => u.id !== userId);
-                localStorage.setItem('admin_users', JSON.stringify(users));
-                loadData();
+        // Функция для сброса статистики
+        function resetStats() {
+            if (confirm('Вы уверены, что хотите сбросить всю статистику? Это действие нельзя отменить.')) {
+                const defaultData = {
+                    totalVisits: 0,
+                    todayVisits: 0,
+                    newVisitors: 0,
+                    returningVisitors: 0,
+                    dailyStats: {},
+                    visits: []
+                };
+                localStorage.setItem('visitorsData', JSON.stringify(defaultData));
+                displayStats();
+                alert('Статистика была сброшена');
             }
         }
 
-        // Показать модальное окно товара
-        function showProductModal(productId = null) {
-            const modal = document.getElementById('product-modal');
-            const form = document.getElementById('product-form');
-            const title = document.getElementById('product-modal-title');
-            
-            if (productId) {
-                // Редактирование товара
-                title.textContent = 'Редактировать товар';
-                const products = JSON.parse(localStorage.getItem('products'));
-                const product = products.find(p => p.id === productId);
-                
-                document.getElementById('product-id').value = product.id;
-                document.getElementById('product-name').value = product.name;
-                document.getElementById('product-category').value = product.category;
-                document.getElementById('product-price').value = product.price;
-                document.getElementById('product-quantity').value = product.quantity;
-                document.getElementById('product-status').value = product.status;
-                document.getElementById('product-description').value = product.description || '';
-            } else {
-                // Добавление товара
-                title.textContent = 'Добавить товар';
-                form.reset();
-            }
-            
-            modal.style.display = 'flex';
+        // Проверка аутентификации
+        function checkAuth() {
+            return localStorage.getItem('admin_authenticated') === 'true';
         }
 
-        // Сохранить товар
-        function saveProduct() {
-            const id = document.getElementById('product-id').value;
-            const name = document.getElementById('product-name').value;
-            const category = document.getElementById('product-category').value;
-            const price = parseFloat(document.getElementById('product-price').value);
-            const quantity = parseInt(document.getElementById('product-quantity').value);
-            const status = document.getElementById('product-status').value;
-            const description = document.getElementById('product-description').value;
-            
-            let products = JSON.parse(localStorage.getItem('products'));
-            
-            if (id) {
-                // Обновление товара
-                const index = products.findIndex(p => p.id === parseInt(id));
-                if (index !== -1) {
-                    products[index] = {
-                        ...products[index],
-                        name,
-                        category,
-                        price,
-                        quantity,
-                        status,
-                        description
-                    };
-                }
-            } else {
-                // Добавление нового товара
-                const newId = Math.max(...products.map(p => p.id)) + 1;
-                products.push({
-                    id: newId,
-                    name,
-                    category,
-                    price,
-                    quantity,
-                    status,
-                    description
-                });
+        // Аутентификация
+        function login(username, password) {
+            // В реальном приложении здесь должна быть проверка с сервером
+            if (username === 'admin' && password === 'admin123') {
+                localStorage.setItem('admin_authenticated', 'true');
+                return true;
             }
-            
-            localStorage.setItem('products', JSON.stringify(products));
-            closeModal('product-modal');
-            loadData();
+            return false;
         }
 
-        // Удалить товар
-        function deleteProduct(productId) {
-            if (confirm('Вы уверены, что хотите удалить этот товар?')) {
-                let products = JSON.parse(localStorage.getItem('products'));
-                products = products.filter(p => p.id !== productId);
-                localStorage.setItem('products', JSON.stringify(products));
-                loadData();
-            }
-        }
-
-        // Показать модальное окно заказа
-        function showOrderModal(orderId) {
-            const modal = document.getElementById('order-modal');
-            const orderDetails = document.getElementById('order-details');
-            const title = document.getElementById('order-modal-title');
-            
-            const orders = JSON.parse(localStorage.getItem('orders'));
-            const order = orders.find(o => o.id === orderId);
-            
-            title.textContent = `Заказ #${order.id}`;
-            document.getElementById('order-status').value = order.status;
-            
-            let statusText = '';
-            switch(order.status) {
-                case 'completed':
-                    statusText = 'Завершен';
-                    break;
-                case 'pending':
-                    statusText = 'В обработке';
-                    break;
-                case 'shipped':
-                    statusText = 'Отправлен';
-                    break;
-            }
-            
-            let itemsHtml = '';
-            order.items.forEach(item => {
-                itemsHtml += `
-                    <tr>
-                        <td>${item.name}</td>
-                        <td>$${item.price.toFixed(2)}</td>
-                        <td>${item.quantity}</td>
-                        <td>$${(item.price * item.quantity).toFixed(2)}</td>
-                    </tr>
-                `;
-            });
-            
-            orderDetails.innerHTML = `
-                <div class="form-group">
-                    <label>Клиент</label>
-                    <p>${order.customer.name} (${order.customer.email})</p>
-                </div>
-                <div class="form-group">
-                    <label>Дата заказа</label>
-                    <p>${order.date}</p>
-                </div>
-                <div class="form-group">
-                    <label>Статус</label>
-                    <p>${statusText}</p>
-                </div>
-                <div class="form-group">
-                    <label>Товары</label>
-                    <table style="width: 100%; margin-top: 10px;">
-                        <thead>
-                            <tr>
-                                <th>Название</th>
-                                <th>Цена</th>
-                                <th>Количество</th>
-                                <th>Сумма</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${itemsHtml}
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="3" style="text-align: right;"><strong>Итого:</strong></td>
-                                <td><strong>$${order.total.toFixed(2)}</strong></td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-            `;
-            
-            modal.style.display = 'flex';
-        }
-
-        // Сохранить заказ
-        function saveOrder() {
-            const orderId = parseInt(document.querySelector('#order-details h3').textContent.replace('Заказ #', ''));
-            const status = document.getElementById('order-status').value;
-            
-            let orders = JSON.parse(localStorage.getItem('orders'));
-            const index = orders.findIndex(o => o.id === orderId);
-            
-            if (index !== -1) {
-                orders[index].status = status;
-                localStorage.setItem('orders', JSON.stringify(orders));
-                closeModal('order-modal');
-                loadData();
-            }
-        }
-
-        // Сохранить настройки
-        function saveSettings() {
-            const settings = {
-                siteName: document.getElementById('site-name').value,
-                siteDescription: document.getElementById('site-description').value,
-                maintenanceMode: document.getElementById('maintenance-mode').value === '1'
-            };
-            
-            localStorage.setItem('settings', JSON.stringify(settings));
-            alert('Настройки успешно сохранены');
-        }
-
-        // Смена пароля
-        function changePassword() {
-            const currentPassword = document.getElementById('current-password').value;
-            const newPassword = document.getElementById('new-password').value;
-            const confirmPassword = document.getElementById('confirm-password').value;
-            
-            if (newPassword !== confirmPassword) {
-                alert('Новый пароль и подтверждение не совпадают');
-                return;
-            }
-            
-            const currentUser = getCurrentUser();
-            if (currentUser.password !== currentPassword) {
-                alert('Текущий пароль неверен');
-                return;
-            }
-            
-            let users = JSON.parse(localStorage.getItem('admin_users'));
-            const index = users.findIndex(u => u.id === currentUser.id);
-            
-            if (index !== -1) {
-                users[index].password = newPassword;
-                localStorage.setItem('admin_users', JSON.stringify(users));
-                localStorage.setItem('current_user', JSON.stringify(users[index]));
-                alert('Пароль успешно изменен');
-                document.getElementById('change-password-form').reset();
-            }
-        }
-
-        // Закрыть модальное окно
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
+        // Выход из системы
+        function logout() {
+            localStorage.removeItem('admin_authenticated');
+            document.getElementById('login-page').style.display = 'flex';
+            document.getElementById('admin-panel').style.display = 'none';
+            document.getElementById('login-email').value = '';
+            document.getElementById('login-password').value = '';
         }
 
         // Переключение между разделами
         function showSection(sectionId) {
-            // Скрыть все разделы
             document.querySelectorAll('.content-area').forEach(section => {
                 section.style.display = 'none';
             });
             
-            // Показать выбранный раздел
             document.getElementById(`${sectionId}-section`).style.display = 'block';
             
-            // Обновить активный пункт меню
             document.querySelectorAll('.menu li').forEach(item => {
                 item.classList.remove('active');
             });
             
             document.querySelector(`.menu li[data-section="${sectionId}"]`).classList.add('active');
             
-            // При необходимости обновить данные
-            if (sectionId === 'analytics') {
-                renderCharts();
+            if (sectionId === 'visitors') {
+                displayStats();
             }
         }
 
         // Инициализация при загрузке страницы
         document.addEventListener('DOMContentLoaded', function() {
-            initializeData();
+            // Обновляем статистику посещений (если это не админ-панель)
+            if (!window.location.href.includes('admin')) {
+                updateVisitorStats();
+            }
             
-            // Проверить аутентификацию
+            // Проверяем аутентификацию
             if (checkAuth()) {
                 document.getElementById('login-page').style.display = 'none';
                 document.getElementById('admin-panel').style.display = 'flex';
-                
-                const currentUser = getCurrentUser();
-                document.getElementById('username-display').textContent = currentUser.name;
-                
-                loadData();
+                displayStats();
             } else {
                 document.getElementById('login-page').style.display = 'flex';
                 document.getElementById('admin-panel').style.display = 'none';
@@ -1619,42 +795,23 @@
             
             // Обработчики событий
             document.getElementById('login-btn').addEventListener('click', function() {
-                const email = document.getElementById('login-email').value;
+                const username = document.getElementById('login-email').value;
                 const password = document.getElementById('login-password').value;
                 
-                if (login(email, password)) {
+                if (login(username, password)) {
                     document.getElementById('login-page').style.display = 'none';
                     document.getElementById('admin-panel').style.display = 'flex';
-                    
-                    const currentUser = getCurrentUser();
-                    document.getElementById('username-display').textContent = currentUser.name;
-                    
-                    loadData();
+                    displayStats();
                 } else {
-                    alert('Неверный email или пароль');
+                    alert('Неверный логин или пароль');
                 }
             });
             
             document.getElementById('logout-btn').addEventListener('click', function(e) {
                 e.preventDefault();
                 logout();
-                document.getElementById('login-page').style.display = 'flex';
-                document.getElementById('admin-panel').style.display = 'none';
-                document.getElementById('login-form').reset();
             });
             
-            document.getElementById('search-btn').addEventListener('click', function() {
-                const searchTerm = document.getElementById('global-search').value;
-                alert(`Поиск: ${searchTerm}`); // В реальном приложении здесь будет поиск по данным
-            });
-            
-            document.getElementById('global-search').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    document.getElementById('search-btn').click();
-                }
-            });
-            
-            // Меню
             document.querySelectorAll('.menu li[data-section]').forEach(item => {
                 item.addEventListener('click', function() {
                     const sectionId = this.getAttribute('data-section');
@@ -1662,84 +819,10 @@
                 });
             });
             
-            // Пользователи
-            document.getElementById('add-user-btn').addEventListener('click', function() {
-                showUserModal();
-            });
+            document.getElementById('counter-reset').addEventListener('click', resetStats);
             
-            document.getElementById('save-user-btn').addEventListener('click', saveUser);
-            document.getElementById('cancel-user-btn').addEventListener('click', function() {
-                closeModal('user-modal');
-            });
-            
-            document.querySelector('.close', '#user-modal').addEventListener('click', function() {
-                closeModal('user-modal');
-            });
-            
-            // Товары
-            document.getElementById('add-product-btn').addEventListener('click', function() {
-                showProductModal();
-            });
-            
-            document.getElementById('save-product-btn').addEventListener('click', saveProduct);
-            document.getElementById('cancel-product-btn').addEventListener('click', function() {
-                closeModal('product-modal');
-            });
-            
-            document.querySelector('.close', '#product-modal').addEventListener('click', function() {
-                closeModal('product-modal');
-            });
-            
-            // Заказы
-            document.getElementById('save-order-btn').addEventListener('click', saveOrder);
-            document.getElementById('cancel-order-btn').addEventListener('click', function() {
-                closeModal('order-modal');
-            });
-            
-            document.querySelector('.close', '#order-modal').addEventListener('click', function() {
-                closeModal('order-modal');
-            });
-            
-            // Настройки
-            document.getElementById('save-settings-btn').addEventListener('click', saveSettings);
-            document.getElementById('change-password-btn').addEventListener('click', changePassword);
-            
-            // Делегирование событий для динамических элементов
-            document.addEventListener('click', function(e) {
-                // Пользователи
-                if (e.target.closest('.btn-edit[data-user-id]')) {
-                    const userId = parseInt(e.target.closest('.btn-edit[data-user-id]').getAttribute('data-user-id'));
-                    showUserModal(userId);
-                }
-                
-                if (e.target.closest('.btn-delete[data-user-id]')) {
-                    const userId = parseInt(e.target.closest('.btn-delete[data-user-id]').getAttribute('data-user-id'));
-                    deleteUser(userId);
-                }
-                
-                // Товары
-                if (e.target.closest('.btn-edit[data-product-id]')) {
-                    const productId = parseInt(e.target.closest('.btn-edit[data-product-id]').getAttribute('data-product-id'));
-                    showProductModal(productId);
-                }
-                
-                if (e.target.closest('.btn-delete[data-product-id]')) {
-                    const productId = parseInt(e.target.closest('.btn-delete[data-product-id]').getAttribute('data-product-id'));
-                    deleteProduct(productId);
-                }
-                
-                // Заказы
-                if (e.target.closest('.btn-edit[data-order-id]') || e.target.closest('.btn-view[data-order-id]')) {
-                    const orderId = parseInt(e.target.closest('[data-order-id]').getAttribute('data-order-id'));
-                    showOrderModal(orderId);
-                }
-            });
-            
-            // Закрытие модальных окон при клике вне их
-            window.addEventListener('click', function(e) {
-                if (e.target.classList.contains('modal')) {
-                    e.target.style.display = 'none';
-                }
+            document.getElementById('change-password-btn').addEventListener('click', function() {
+                alert('В реальном приложении здесь будет смена пароля');
             });
         });
     </script>
